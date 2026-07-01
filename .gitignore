@@ -1,0 +1,4 @@
+server-*.log
+.agents/
+.codex/
+assets/video-message.mp4
