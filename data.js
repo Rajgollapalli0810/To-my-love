@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260702-fast-media",
+  assetVersion: "20260702-urge-song",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
