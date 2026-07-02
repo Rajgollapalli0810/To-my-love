@@ -55,12 +55,14 @@ window.LOVE_SITE_DATA = {
     {
       image: "assets/my-love/first gift from my love.jpg",
       title: "First Gift From My Love",
-      message: "This gift will always be more than a thing to me. It is proof that love can live inside small gestures, careful thoughts, and moments that quietly become permanent. Whenever I remember it, I remember how special it felt to be loved by you."
+      message: "This gift will always be more than a thing to me. It is proof that love can live inside small gestures, careful thoughts, and moments that quietly become permanent. Whenever I remember it, I remember how special it felt to be loved by you.",
+      song: "assets/Gift From My Love.mpeg"
     },
     {
       image: "assets/my-love/firstmeet.jpg",
       title: "First Meet",
-      message: "The first time we met, I did not know how deeply that moment would stay with me. Now it feels like the first page of my favorite story, the place where something simple became something unforgettable, and where my heart quietly started walking toward you."
+      message: "The first time we met, I did not know how deeply that moment would stay with me. Now it feels like the first page of my favorite story, the place where something simple became something unforgettable, and where my heart quietly started walking toward you.",
+      song: "assets/First Meet.mpeg"
     },
     {
       image: "assets/my-love/foever movement.jpg",
@@ -87,7 +89,8 @@ window.LOVE_SITE_DATA = {
     {
       image: "assets/my-love/prayer together.jpg",
       title: "Prayer Together",
-      message: "Praying together feels like our love standing in its purest form. It reminds me that I do not only want romance with you, I want peace with you, faith with you, strength with you, and a life where we hold each other through everything."
+      message: "Praying together feels like our love standing in its purest form. It reminds me that I do not only want romance with you, I want peace with you, faith with you, strength with you, and a life where we hold each other through everything.",
+      song: "assets/Prayer Together.mpeg"
     },
     {
       image: "assets/my-love/the eyes keeping me in a loop.jpg",
@@ -98,7 +101,8 @@ window.LOVE_SITE_DATA = {
     {
       image: "assets/my-love/the ultimate conversation.jpg",
       title: "The Ultimate Conversation",
-      message: "The best conversations are not always the longest ones. Sometimes they are the ones where I feel understood, close, and completely myself. With you, even simple words can become memories, and even silence can feel full."
+      message: "The best conversations are not always the longest ones. Sometimes they are the ones where I feel understood, close, and completely myself. With you, even simple words can become memories, and even silence can feel full.",
+      song: "assets/The Ultimate Conversation.mpeg"
     },
     {
       image: "assets/my-love/the urge to be together.jpg",
@@ -107,11 +111,27 @@ window.LOVE_SITE_DATA = {
     }
   ],
   hiddenNotes: [
-    "My love ❤️,\n\nEvery time I think about you, I realize how incredibly lucky I am. You are my peace after every storm, my smile after every difficult day, and the reason my heart feels so full. Loving you isn't something I do—it's simply who I am now. No matter where life takes us, my heart will always choose you, over and over again. I love you more than words will ever be able to express. 💖",
-    "My beautiful girl,\n\nIf I could give you one thing in this world, it would be the ability to see yourself through my eyes. Then you'd know why I look at you with so much admiration, why hearing your voice instantly calms me, and why your happiness means more to me than my own. You are the dream I never knew I was waiting for, and I'll spend every day making sure you never doubt how deeply you are loved. 🌹❤️",
-    "My sweetheart,\n\nI don't promise a life without problems, but I promise you'll never have to face them alone. I want to be the hand you hold when you're afraid, the hug that makes your worries disappear, and the heart that reminds you every single day that you are cherished beyond measure. If I had a thousand lives, I'd search for you in every one of them just to fall in love with you all over again. Forever will never be long enough with you. 🥹💕",
-    "To the love of my life,\n\nThere are billions of people in this world, yet somehow my heart found its way to you—and that's the greatest miracle of my life. You're the first thought in my mornings, the quiet prayer in my nights, and the most beautiful chapter of my story. No distance, no challenge, and no amount of time could ever change what I feel for you. As long as my heart beats, it will whisper one name... yours. I love you endlessly, today, tomorrow, and for every tomorrow after that. ❤️♾️"
+    {
+      title: "Open when you miss me",
+      message: "My love ❤️,\n\nEvery time I think about you, I realize how incredibly lucky I am. You are my peace after every storm, my smile after every difficult day, and the reason my heart feels so full. Loving you isn't something I do—it's simply who I am now. No matter where life takes us, my heart will always choose you, over and over again. I love you more than words will ever be able to express. 💖"
+    },
+    {
+      title: "Open when NEET PG feels heavy",
+      message: "My beautiful girl,\n\nIf I could give you one thing in this world, it would be the ability to see yourself through my eyes. Then you'd know why I look at you with so much admiration, why hearing your voice instantly calms me, and why your happiness means more to me than my own. You are the dream I never knew I was waiting for, and I'll spend every day making sure you never doubt how deeply you are loved. 🌹❤️"
+    },
+    {
+      title: "Open when you need strength",
+      message: "My sweetheart,\n\nI don't promise a life without problems, but I promise you'll never have to face them alone. I want to be the hand you hold when you're afraid, the hug that makes your worries disappear, and the heart that reminds you every single day that you are cherished beyond measure. If I had a thousand lives, I'd search for you in every one of them just to fall in love with you all over again. Forever will never be long enough with you. 🥹💕"
+    },
+    {
+      title: "Open when you need to remember us",
+      message: "To the love of my life,\n\nThere are billions of people in this world, yet somehow my heart found its way to you—and that's the greatest miracle of my life. You're the first thought in my mornings, the quiet prayer in my nights, and the most beautiful chapter of my story. No distance, no challenge, and no amount of time could ever change what I feel for you. As long as my heart beats, it will whisper one name... yours. I love you endlessly, today, tomorrow, and for every tomorrow after that. ❤️♾️"
+    }
   ],
+  finalHiddenNote: {
+    title: "You found every hidden note",
+    message: "But there is still one thing I can never hide: I love you more every day, in every version of life, through every challenge, and in every future I imagine."
+  },
   playlist: [
     { title: "Our Song", artist: "For Ever Mine", link: "assets/music/Our Song.mp3" },
     { title: "The Birthday Song", artist: "Birthday Surprise", link: "assets/music/Birthday song.mp3" }

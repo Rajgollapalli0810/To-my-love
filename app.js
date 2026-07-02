@@ -46,6 +46,7 @@ function setupLogin() {
   if (data.login?.hint) {
     $("#loginHint").textContent = `Hint: ${data.login.hint}`;
   }
+  prepareBackgroundMusic();
   $("#loginForm").addEventListener("submit", (event) => {
     event.preventDefault();
     const typed = $("#secretDate").value.trim().replace(/\D/g, "");
@@ -55,9 +56,9 @@ function setupLogin() {
       return;
     }
     $("#loginScreen").classList.add("is-hidden");
+    tryPlayMusic();
     $("#introScreen").hidden = false;
     setTimeout(() => $("#introScreen").classList.add("is-visible"), 40);
-    tryPlayMusic();
   });
 }
 
@@ -144,11 +145,20 @@ function setupChapters() {
 function tryPlayMusic() {
   const audio = $("#backgroundMusic");
   if (!data.music.file) return;
-  audio.src = data.music.file;
+  prepareBackgroundMusic();
   audio.volume = 0.36;
   audio.play()
     .then(() => $("#musicToggle").textContent = "Pause music")
     .catch(() => $("#musicToggle").textContent = "Play music");
+}
+
+function prepareBackgroundMusic() {
+  const audio = $("#backgroundMusic");
+  if (!data.music.file) return;
+  if (!audio.getAttribute("src")) {
+    audio.src = data.music.file;
+    audio.load();
+  }
 }
 
 function setupMusic() {
@@ -287,7 +297,7 @@ function openGalleryLightbox(item) {
   $("#lightboxImage").alt = item.title;
   $("#lightboxTitle").textContent = item.title;
   $("#lightboxMessage").textContent = item.message || item.caption || "";
-  $("#lightboxSong").textContent = item.song ? "This memory has its own song playing." : "";
+  $("#lightboxSong").textContent = "";
   playGallerySong(item.song);
   $("#galleryLightbox").hidden = false;
   requestAnimationFrame(() => $("#galleryLightbox").classList.add("open"));
@@ -328,12 +338,30 @@ function stopGallerySong() {
 function renderNotes() {
   const grid = $("#notesGrid");
   data.hiddenNotes.forEach((note, index) => {
+    const title = typeof note === "string" ? `Note ${index + 1}` : note.title;
+    const message = typeof note === "string" ? note : note.message;
     const button = create("button", "note-card");
     button.type = "button";
-    button.innerHTML = `<span>Note ${index + 1}</span><strong>Open</strong><p>${note}</p>`;
-    button.addEventListener("click", () => button.classList.toggle("revealed"));
+    button.innerHTML = `<span>Hidden note ${index + 1}</span><strong>${title}</strong><p>${message}</p>`;
+    button.addEventListener("click", () => {
+      button.classList.add("revealed");
+      revealFinalHiddenNoteIfReady();
+    });
     grid.append(button);
   });
+  if (data.finalHiddenNote) {
+    $("#finalHiddenTitle").textContent = data.finalHiddenNote.title;
+    $("#finalHiddenMessage").textContent = data.finalHiddenNote.message;
+  }
+}
+
+function revealFinalHiddenNoteIfReady() {
+  const notes = document.querySelectorAll(".note-card");
+  const opened = document.querySelectorAll(".note-card.revealed");
+  if (notes.length && notes.length === opened.length) {
+    $("#finalHiddenNote").classList.add("revealed");
+    launchConfetti();
+  }
 }
 
 function renderPlaylist() {

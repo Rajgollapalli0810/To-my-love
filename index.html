@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260702-notes" />
   </head>
   <body>
     <div class="heart-sky" aria-hidden="true">
@@ -137,6 +137,11 @@
           <h2>Tap To Reveal</h2>
         </div>
         <div class="notes-grid" id="notesGrid"></div>
+        <article class="final-hidden-note" id="finalHiddenNote">
+          <p class="eyebrow">Secret unlocked</p>
+          <h3 id="finalHiddenTitle"></h3>
+          <p id="finalHiddenMessage"></p>
+        </article>
       </section>
 
       <section class="section playlist-section" id="playlist">
@@ -230,7 +235,7 @@
 
     <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
-    <script src="data.js"></script>
-    <script src="app.js"></script>
+    <script src="data.js?v=20260702-notes"></script>
+    <script src="app.js?v=20260702-notes"></script>
   </body>
 </html>
