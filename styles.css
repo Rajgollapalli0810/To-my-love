@@ -320,8 +320,7 @@ video {
   animation: hangingHeartSway 3.8s ease-in-out infinite;
 }
 
-.hanging-hearts span::after {
-  content: "\2665";
+.hanging-hearts span i {
   position: absolute;
   left: 50%;
   bottom: -22px;
@@ -337,6 +336,8 @@ video {
     linear-gradient(135deg, rgba(255, 84, 151, 0.98), rgba(184, 23, 98, 0.96));
   box-shadow: 0 14px 34px rgba(117, 32, 76, 0.34);
   font-size: 22px;
+  font-style: normal;
+  line-height: 1;
   transform: translateX(-50%) rotate(7deg);
 }
 
