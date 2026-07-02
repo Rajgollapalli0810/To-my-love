@@ -1495,7 +1495,7 @@ video {
 
 #proposalNo.is-running {
   position: absolute;
-  transition: left 0.16s ease, top 0.16s ease, transform 0.16s ease;
+  transition: left 0.28s ease, top 0.28s ease, transform 0.18s ease;
   transform: rotate(-5deg);
 }
 

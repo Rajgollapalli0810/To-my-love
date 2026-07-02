@@ -50,7 +50,8 @@ window.LOVE_SITE_DATA = {
     {
       image: "assets/my-love/beauty that never fade.jpg",
       title: "Beauty That Never Fades",
-      message: "Your beauty is not only in the way you look, but in the calm you bring, the kindness you carry, and the way your presence stays in my mind long after the moment passes. Some photos capture a face, but this one reminds me of a feeling I never want to lose."
+      message: "Your beauty is not only in the way you look, but in the calm you bring, the kindness you carry, and the way your presence stays in my mind long after the moment passes. Some photos capture a face, but this one reminds me of a feeling I never want to lose.",
+      song: "assets/Beauty That Never Fades.mpeg"
     },
     {
       image: "assets/my-love/first gift from my love.jpg",
@@ -67,7 +68,8 @@ window.LOVE_SITE_DATA = {
     {
       image: "assets/my-love/foever movement.jpg",
       title: "Forever Moment",
-      message: "Some moments do not need perfect words because the heart already understands them. This one feels like a promise hidden inside time, a memory I want to keep safe because it reminds me that forever can begin in one beautiful second."
+      message: "Some moments do not need perfect words because the heart already understands them. This one feels like a promise hidden inside time, a memory I want to keep safe because it reminds me that forever can begin in one beautiful second.",
+      song: "assets/Forever Moment.mpeg"
     },
     {
       image: "assets/my-love/furute im expecting.jpeg",
@@ -78,7 +80,8 @@ window.LOVE_SITE_DATA = {
     {
       image: "assets/my-love/godess blessings.jpg",
       title: "Goddess Blessings",
-      message: "This picture feels like peace, protection, and hope. I pray that every dream we carry receives blessings, every difficult day becomes lighter, and every step we take together is guided by love, patience, and something divine."
+      message: "This picture feels like peace, protection, and hope. I pray that every dream we carry receives blessings, every difficult day becomes lighter, and every step we take together is guided by love, patience, and something divine.",
+      song: "assets/Goddess Blessings.mpeg"
     },
     {
       image: "assets/my-love/love of my life.png",
@@ -107,7 +110,8 @@ window.LOVE_SITE_DATA = {
     {
       image: "assets/my-love/the urge to be together.jpg",
       title: "The Urge To Be Together",
-      message: "Missing you has its own language, and this picture feels like that language. It reminds me of the pull I feel toward you, the wish to be near you, and the simple truth that every day feels better when it has you in it."
+      message: "Missing you has its own language, and this picture feels like that language. It reminds me of the pull I feel toward you, the wish to be near you, and the simple truth that every day feels better when it has you in it.",
+      song: "assets/The Urge To Be Together.mpeg"
     }
   ],
   hiddenNotes: [

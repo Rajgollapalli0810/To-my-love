@@ -21,6 +21,8 @@ const create = (tag, className) => {
 };
 let chaptersReady = false;
 let gallerySong = null;
+let proposalNoTimer = null;
+let backgroundWasPlayingBeforeGallery = false;
 
 function versionedAsset(path) {
   if (!path || /^https?:\/\//.test(path)) return path;
@@ -316,7 +318,8 @@ function playGallerySong(song) {
   stopGallerySong();
   if (!song) return;
   const backgroundMusic = $("#backgroundMusic");
-  if (!backgroundMusic.paused) backgroundMusic.volume = 0.08;
+  backgroundWasPlayingBeforeGallery = !backgroundMusic.paused;
+  if (backgroundWasPlayingBeforeGallery) backgroundMusic.pause();
   gallerySong = new Audio(versionedAsset(song));
   gallerySong.volume = 0.62;
   gallerySong.loop = true;
@@ -332,7 +335,11 @@ function stopGallerySong() {
     gallerySong = null;
   }
   const backgroundMusic = $("#backgroundMusic");
-  if (!backgroundMusic.paused) backgroundMusic.volume = 0.36;
+  backgroundMusic.volume = 0.36;
+  if (backgroundWasPlayingBeforeGallery) {
+    backgroundMusic.play().catch(() => {});
+  }
+  backgroundWasPlayingBeforeGallery = false;
 }
 
 function renderNotes() {
@@ -537,11 +544,13 @@ function updateProposalQuestion() {
   $("#proposalNo").classList.remove("is-running");
   $("#proposalNo").style.left = "";
   $("#proposalNo").style.top = "";
+  startProposalNoDance();
 }
 
 function moveProposalNo() {
   const button = $("#proposalNo");
   const game = $("#proposalGame");
+  if (game.classList.contains("accepted")) return;
   const gameRect = game.getBoundingClientRect();
   const buttonRect = button.getBoundingClientRect();
   const maxX = Math.max(0, gameRect.width - buttonRect.width - 20);
@@ -549,6 +558,17 @@ function moveProposalNo() {
   button.classList.add("is-running");
   button.style.left = `${Math.random() * maxX}px`;
   button.style.top = `${Math.random() * maxY}px`;
+}
+
+function startProposalNoDance() {
+  clearInterval(proposalNoTimer);
+  proposalNoTimer = setInterval(moveProposalNo, 1200);
+  setTimeout(moveProposalNo, 450);
+}
+
+function stopProposalNoDance() {
+  clearInterval(proposalNoTimer);
+  proposalNoTimer = null;
 }
 
 function setupProposalFlow() {
@@ -568,6 +588,7 @@ function setupProposalFlow() {
     const nextIndex = Number(game.dataset.step || 0) + 1;
     if (nextIndex >= questions.length) {
       game.classList.add("accepted");
+      stopProposalNoDance();
       launchConfetti();
       return;
     }
