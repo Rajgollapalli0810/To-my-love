@@ -25,6 +25,7 @@ let gallerySong = null;
 let proposalNoTimer = null;
 let backgroundWasPlayingBeforeGallery = false;
 let backgroundMusicRequested = false;
+const audioCache = new Map();
 
 function versionedAsset(path) {
   if (!path || /^https?:\/\//.test(path)) return path;
@@ -162,10 +163,30 @@ function tryPlayMusic() {
 function prepareBackgroundMusic() {
   const audio = $("#backgroundMusic");
   if (!data.music.file) return;
+  audio.preload = "auto";
   if (!audio.getAttribute("src")) {
-    audio.src = data.music.file;
+    audio.src = versionedAsset(data.music.file);
     audio.load();
   }
+}
+
+function warmAudio(path) {
+  if (!path || /^https?:\/\//.test(path) || audioCache.has(path)) return audioCache.get(path);
+  const audio = new Audio(versionedAsset(path));
+  audio.preload = "auto";
+  audio.load();
+  audioCache.set(path, audio);
+  return audio;
+}
+
+function warmMediaAssets() {
+  prepareBackgroundMusic();
+  if (data.hero.image) {
+    const image = new Image();
+    image.src = versionedAsset(data.hero.image);
+  }
+  data.gallery?.forEach((item) => warmAudio(item.song));
+  data.playlist?.forEach((item) => warmAudio(item.link));
 }
 
 function setupMusic() {
@@ -252,7 +273,7 @@ function renderVideo() {
     const music = $("#backgroundMusic");
     music.volume = 0.14;
     if (music.paused && data.music.file) {
-      music.src = data.music.file;
+      music.src = versionedAsset(data.music.file);
       music.play().catch(() => {});
     }
   });
@@ -342,7 +363,9 @@ function playGallerySong(song) {
   const backgroundMusic = $("#backgroundMusic");
   backgroundWasPlayingBeforeGallery = !backgroundMusic.paused;
   if (backgroundWasPlayingBeforeGallery) backgroundMusic.pause();
-  gallerySong = new Audio(versionedAsset(song));
+  gallerySong = warmAudio(song) || new Audio(versionedAsset(song));
+  gallerySong.pause();
+  gallerySong.currentTime = 0;
   gallerySong.volume = 0.62;
   gallerySong.loop = true;
   gallerySong.play().catch(() => {
@@ -689,6 +712,7 @@ function init() {
   setupHeartTrail();
   $("#confettiButton").addEventListener("click", launchConfetti);
   $("#neetConfettiButton").addEventListener("click", launchConfetti);
+  window.setTimeout(warmMediaAssets, 250);
 }
 
 init();
