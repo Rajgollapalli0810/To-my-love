@@ -1354,15 +1354,17 @@ video {
   aspect-ratio: 0.72;
   display: grid;
   place-items: center;
-  border: 2px solid rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.82);
   border-radius: 34px 34px 74px 74px;
   background:
     radial-gradient(circle at 34% 18%, rgba(255, 255, 255, 0.82), transparent 16%),
+    radial-gradient(circle at 42% 48%, rgba(255, 211, 111, 0.18), transparent 20%),
     radial-gradient(circle at 72% 78%, rgba(255, 211, 111, 0.28), transparent 28%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.68), rgba(255, 224, 238, 0.34));
   box-shadow:
     inset 0 0 34px rgba(255, 255, 255, 0.68),
     inset 0 -30px 70px rgba(239, 79, 136, 0.12),
+    0 0 0 10px rgba(255, 255, 255, 0.16),
     0 34px 90px rgba(139, 31, 84, 0.22);
   overflow: visible;
 }
@@ -1376,6 +1378,93 @@ video {
   border-radius: 999px;
   background: linear-gradient(rgba(255, 255, 255, 0.5), transparent);
   transform: rotate(10deg);
+}
+
+.jar-glass::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(255, 211, 111, 0.38);
+  border-radius: 28px 28px 66px 66px;
+  pointer-events: none;
+}
+
+.jar-neck {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  z-index: 2;
+  width: 150px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.54);
+  border-radius: 10px 10px 16px 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.64), rgba(255, 211, 111, 0.28));
+  box-shadow: 0 12px 26px rgba(117, 32, 76, 0.14);
+  transform: translateX(-50%);
+}
+
+.jar-ribbon {
+  position: absolute;
+  left: 50%;
+  top: 64px;
+  z-index: 3;
+  width: 230px;
+  height: 46px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.48), transparent 20%),
+    linear-gradient(90deg, #b81762, #ef4f88 44%, #ffd36f 45% 55%, #ef4f88 56%, #b81762);
+  box-shadow: 0 18px 38px rgba(117, 32, 76, 0.22);
+  transform: translateX(-50%);
+}
+
+.jar-ribbon::before,
+.jar-ribbon::after {
+  content: "";
+  position: absolute;
+  top: 34px;
+  width: 58px;
+  height: 54px;
+  background: linear-gradient(135deg, #b81762, #ef4f88);
+  clip-path: polygon(0 0, 100% 0, 76% 100%, 50% 72%, 18% 100%);
+}
+
+.jar-ribbon::before {
+  left: 48px;
+  transform: rotate(8deg);
+}
+
+.jar-ribbon::after {
+  right: 48px;
+  transform: rotate(-8deg);
+}
+
+.jar-gem {
+  position: absolute;
+  z-index: 4;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, white, #ffd36f 42%, #ef4f88);
+  box-shadow: 0 0 16px rgba(255, 211, 111, 0.62);
+  animation: promiseSparkle 2.4s ease-in-out infinite;
+}
+
+.jar-gem.g1 {
+  left: 42px;
+  top: 48px;
+}
+
+.jar-gem.g2 {
+  right: 40px;
+  top: 134px;
+  animation-delay: -0.8s;
+}
+
+.jar-gem.g3 {
+  left: 62px;
+  bottom: 54px;
+  animation-delay: -1.5s;
 }
 
 .jar-glass i {
@@ -1484,7 +1573,9 @@ video {
   align-content: center;
   gap: 16px;
   padding: clamp(24px, 5vw, 42px);
+  border-color: rgba(255, 211, 111, 0.48);
   background:
+    linear-gradient(90deg, rgba(255, 211, 111, 0.18), transparent 18% 82%, rgba(239, 79, 136, 0.12)),
     radial-gradient(circle at 90% 12%, rgba(255, 211, 111, 0.22), transparent 24%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 244, 249, 0.9));
   box-shadow: 0 28px 80px rgba(139, 31, 84, 0.18);

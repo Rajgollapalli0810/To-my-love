@@ -26,6 +26,7 @@ let gallerySong = null;
 let proposalNoTimer = null;
 let backgroundWasPlayingBeforeGallery = false;
 let backgroundMusicRequested = false;
+let promiseLoginSeed = Date.now();
 const audioCache = new Map();
 
 function versionedAsset(path) {
@@ -61,6 +62,7 @@ function setupLogin() {
       $("#loginMessage").textContent = "That date is not the key. Try the special one.";
       return;
     }
+    promiseLoginSeed = Date.now();
     $("#loginScreen").classList.add("is-hidden");
     tryPlayMusic();
     $("#introScreen").hidden = false;
@@ -306,7 +308,12 @@ function setupPromiseJar() {
   const note = $("#promiseNote");
   const count = $("#promiseCount");
   if (!button || !note || !data.promises?.length) return;
-  let index = 0;
+  const lastPromiseIndex = Number(localStorage.getItem("lastPromiseStart") || "-1");
+  let index = Math.abs(promiseLoginSeed + Math.floor(Math.random() * data.promises.length)) % data.promises.length;
+  if (data.promises.length > 1 && index === lastPromiseIndex) {
+    index = (index + 1) % data.promises.length;
+  }
+  localStorage.setItem("lastPromiseStart", String(index));
   let lastPromiseTap = 0;
   const showPromise = () => {
     const now = Date.now();
@@ -331,10 +338,10 @@ function setupPromiseJar() {
     event.preventDefault();
     showPromise();
   });
-  note.textContent = data.promises[0];
-  count.textContent = `1 / ${data.promises.length}`;
+  note.textContent = data.promises[index];
+  count.textContent = `${index + 1} / ${data.promises.length}`;
   note.classList.add("is-showing");
-  index = 1;
+  index = (index + 1) % data.promises.length;
 }
 
 function renderTimeline() {
