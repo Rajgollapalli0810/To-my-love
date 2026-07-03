@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260703-grand-jar-random",
+  assetVersion: "20260703-welcome-line",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
@@ -16,7 +16,8 @@ window.LOVE_SITE_DATA = {
   },
   intro: {
     title: "Before you enter, know this...",
-    text: "Every page was made with love, every memory was kept with care, and every word here belongs only to you."
+    text: "Every page was made with love, every memory was kept with care, and every word here belongs only to you.",
+    welcome: "You found the doorway to the place where my heart keeps you safe."
   },
   hero: {
     dateLine: "Made only for you",

@@ -73,6 +73,7 @@ function setupLogin() {
 function setupIntro() {
   $("#introTitle").textContent = data.intro.title;
   $("#introText").textContent = data.intro.text;
+  $("#introWelcome").textContent = data.intro.welcome || "";
   $("#enterSite").addEventListener("click", async () => {
     $("#introScreen").classList.remove("is-visible");
     setTimeout(() => {
