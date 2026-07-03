@@ -307,11 +307,16 @@ function setupPromiseJar() {
   const count = $("#promiseCount");
   if (!button || !note || !data.promises?.length) return;
   let index = 0;
+  let lastPromiseTap = 0;
   const showPromise = () => {
+    const now = Date.now();
+    if (now - lastPromiseTap < 620) return;
+    lastPromiseTap = now;
     button.classList.remove("is-opening");
     void button.offsetWidth;
     button.classList.add("is-opening");
     note.classList.remove("is-showing");
+    window.setTimeout(() => button.classList.remove("is-opening"), 1100);
     window.setTimeout(() => {
       note.textContent = data.promises[index];
       count.textContent = `${index + 1} / ${data.promises.length}`;
@@ -319,7 +324,13 @@ function setupPromiseJar() {
       index = (index + 1) % data.promises.length;
     }, 420);
   };
+  button.addEventListener("pointerdown", showPromise);
   button.addEventListener("click", showPromise);
+  button.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    showPromise();
+  });
   note.textContent = data.promises[0];
   count.textContent = `1 / ${data.promises.length}`;
   note.classList.add("is-showing");

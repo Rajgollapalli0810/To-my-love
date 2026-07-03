@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260703-grand-promise-jar",
+  assetVersion: "20260703-promise-touch-fix",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
