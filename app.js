@@ -390,6 +390,8 @@ function renderGallery() {
 }
 
 function openGalleryLightbox(item) {
+  const containedLightboxTitles = new Set(["Beauty That Never Fades", "First Meet", "Prayer Together"]);
+  $("#galleryLightbox").classList.toggle("contain-photo", containedLightboxTitles.has(item.title));
   $("#lightboxImage").src = versionedAsset(item.image);
   $("#lightboxImage").alt = item.title;
   $("#lightboxTitle").textContent = item.title;
@@ -402,6 +404,7 @@ function openGalleryLightbox(item) {
 
 function closeGalleryLightbox() {
   $("#galleryLightbox").classList.remove("open");
+  $("#galleryLightbox").classList.remove("contain-photo");
   stopGallerySong();
   setTimeout(() => {
     $("#galleryLightbox").hidden = true;
