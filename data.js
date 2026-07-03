@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260703-unlock-toast",
+  assetVersion: "20260703-lightbox-contain",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
