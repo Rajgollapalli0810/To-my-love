@@ -222,7 +222,7 @@ function renderShell() {
   $("#heroDate").textContent = data.hero.dateLine;
   $("#heroTitle").textContent = data.hero.title;
   $("#heroMessage").textContent = data.hero.message;
-  $("#heartbeatMessage").textContent = data.hero.heartbeatMessage || "";
+  renderHeartbeatMessage();
   $("#galleryIntro").textContent = data.galleryIntro || "";
   renderBook();
   $("#birthdayTitle").textContent = data.birthday.title;
@@ -250,6 +250,18 @@ function renderShell() {
   if (data.hero.image) {
     $("#heroBg").style.backgroundImage = `linear-gradient(90deg, rgba(18, 14, 15, .72), rgba(18, 14, 15, .2)), url("${versionedAsset(data.hero.image)}")`;
   }
+}
+
+function renderHeartbeatMessage() {
+  const message = data.hero.heartbeatMessage || "";
+  const target = $("#heartbeatMessage");
+  target.innerHTML = "";
+  [...message].forEach((character, index) => {
+    const span = create("span");
+    span.textContent = character === " " ? "\u00a0" : character;
+    span.style.setProperty("--letter-delay", `${index * 0.045}s`);
+    target.append(span);
+  });
 }
 
 function renderStats() {

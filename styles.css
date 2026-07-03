@@ -820,7 +820,6 @@ video {
 .heartbeat-box p {
   max-width: 430px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.92);
   font-weight: 800;
   line-height: 1.6;
   opacity: 0;
@@ -828,9 +827,41 @@ video {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
+.heartbeat-box p span {
+  display: inline-block;
+  color: #ffd36f;
+  opacity: 0;
+  transform: translateY(10px);
+  text-shadow: 0 0 12px rgba(255, 211, 111, 0.48), 0 4px 18px rgba(117, 32, 76, 0.32);
+}
+
 .heartbeat-box.revealed p {
   opacity: 1;
   transform: translateX(0);
+}
+
+.heartbeat-box.revealed p span {
+  animation: goldenLetterReveal 0.55s ease forwards, goldenTextShine 2.2s ease-in-out infinite;
+  animation-delay: var(--letter-delay), calc(var(--letter-delay) + 0.6s);
+}
+
+@keyframes goldenLetterReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes goldenTextShine {
+  0%, 100% {
+    color: #ffd36f;
+    text-shadow: 0 0 10px rgba(255, 211, 111, 0.42), 0 4px 18px rgba(117, 32, 76, 0.28);
+  }
+
+  50% {
+    color: #fff4b8;
+    text-shadow: 0 0 18px rgba(255, 244, 184, 0.82), 0 0 34px rgba(255, 211, 111, 0.44);
+  }
 }
 
 @keyframes heartbeatPulse {
