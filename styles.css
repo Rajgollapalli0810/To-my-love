@@ -1254,9 +1254,10 @@ video {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 16% 20%, rgba(255, 211, 111, 0.24), transparent 28%),
-    radial-gradient(circle at 84% 72%, rgba(239, 79, 136, 0.2), transparent 32%),
-    linear-gradient(135deg, rgba(255, 241, 248, 0.92), rgba(255, 250, 252, 0.96));
+    radial-gradient(circle at 18% 18%, rgba(255, 211, 111, 0.38), transparent 28%),
+    radial-gradient(circle at 84% 70%, rgba(239, 79, 136, 0.28), transparent 32%),
+    radial-gradient(circle at 48% 44%, rgba(255, 255, 255, 0.74), transparent 22%),
+    linear-gradient(135deg, #ffd8ea 0%, #fff1f8 48%, #ffe8b8 100%);
 }
 
 .promise-section::before {
@@ -1269,6 +1270,16 @@ video {
   font-size: clamp(70px, 15vw, 190px);
   font-weight: 700;
   line-height: 0.85;
+  pointer-events: none;
+}
+
+.promise-section::after {
+  content: "";
+  position: absolute;
+  inset: 24px;
+  border: 1px solid rgba(255, 211, 111, 0.32);
+  border-radius: 8px;
+  box-shadow: inset 0 0 70px rgba(255, 255, 255, 0.5);
   pointer-events: none;
 }
 
@@ -1287,18 +1298,54 @@ video {
   justify-items: center;
   align-content: center;
   gap: 16px;
+  position: relative;
   border: 0;
   color: var(--plum);
   background: transparent;
   cursor: pointer;
 }
 
+.promise-jar::before,
+.promise-jar::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.58);
+  filter: blur(1px);
+  animation: promiseSparkle 2.8s ease-in-out infinite;
+}
+
+.promise-jar::before {
+  width: 16px;
+  height: 16px;
+  left: 18%;
+  top: 18%;
+}
+
+.promise-jar::after {
+  width: 10px;
+  height: 10px;
+  right: 18%;
+  top: 30%;
+  animation-delay: -1.2s;
+}
+
 .jar-lid {
+  position: relative;
+  z-index: 3;
   width: 154px;
   height: 30px;
   border-radius: 8px 8px 14px 14px;
-  background: linear-gradient(135deg, var(--gold), #fff0b6);
-  box-shadow: 0 12px 24px rgba(117, 32, 76, 0.16);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent 22% 78%, rgba(255, 255, 255, 0.24)),
+    linear-gradient(135deg, #ffd36f, #fff2ba);
+  box-shadow: 0 16px 34px rgba(117, 32, 76, 0.2);
+  transform-origin: 18% 100%;
+  transition: transform 280ms ease;
+}
+
+.promise-jar.is-opening .jar-lid {
+  animation: jarLidOpen 1s ease both;
 }
 
 .jar-glass {
@@ -1310,10 +1357,25 @@ video {
   border: 2px solid rgba(255, 255, 255, 0.7);
   border-radius: 34px 34px 74px 74px;
   background:
-    radial-gradient(circle at 34% 18%, rgba(255, 255, 255, 0.74), transparent 16%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.62), rgba(255, 224, 238, 0.28));
-  box-shadow: inset 0 0 34px rgba(255, 255, 255, 0.58), 0 30px 80px rgba(139, 31, 84, 0.18);
-  overflow: hidden;
+    radial-gradient(circle at 34% 18%, rgba(255, 255, 255, 0.82), transparent 16%),
+    radial-gradient(circle at 72% 78%, rgba(255, 211, 111, 0.28), transparent 28%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.68), rgba(255, 224, 238, 0.34));
+  box-shadow:
+    inset 0 0 34px rgba(255, 255, 255, 0.68),
+    inset 0 -30px 70px rgba(239, 79, 136, 0.12),
+    0 34px 90px rgba(139, 31, 84, 0.22);
+  overflow: visible;
+}
+
+.jar-glass::before {
+  content: "";
+  position: absolute;
+  inset: 20px 28px auto auto;
+  width: 46px;
+  height: 150px;
+  border-radius: 999px;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), transparent);
+  transform: rotate(10deg);
 }
 
 .jar-glass i {
@@ -1323,6 +1385,37 @@ video {
   border-radius: 8px;
   background: linear-gradient(135deg, #fff7cf, #ffdce9);
   box-shadow: 0 12px 24px rgba(117, 32, 76, 0.1);
+}
+
+.promise-slip {
+  position: absolute;
+  left: 50%;
+  bottom: 126px;
+  z-index: 2;
+  width: 96px;
+  height: 38px;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(117, 32, 76, 0.18) 0 1px, transparent 1px 100%),
+    linear-gradient(135deg, #fff8d9, #ffdce9);
+  box-shadow: 0 16px 34px rgba(117, 32, 76, 0.16);
+  opacity: 0;
+  transform: translate(-50%, 34px) rotate(-8deg) scale(0.88);
+}
+
+.promise-slip::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 13px;
+  height: 2px;
+  background: rgba(117, 32, 76, 0.24);
+  box-shadow: 0 8px 0 rgba(117, 32, 76, 0.18);
+}
+
+.promise-jar.is-opening .promise-slip {
+  animation: promiseSlipRise 1s ease both;
 }
 
 .jar-glass i:nth-child(1) {
@@ -1367,7 +1460,9 @@ video {
   gap: 16px;
   padding: clamp(24px, 5vw, 42px);
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 244, 249, 0.86));
+    radial-gradient(circle at 90% 12%, rgba(255, 211, 111, 0.22), transparent 24%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 244, 249, 0.9));
+  box-shadow: 0 28px 80px rgba(139, 31, 84, 0.18);
 }
 
 .promise-note-card #promiseNote {
@@ -1402,6 +1497,49 @@ video {
 
   45% {
     transform: scale(1.12);
+  }
+}
+
+@keyframes jarLidOpen {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  28%, 72% {
+    transform: translate(-22px, -20px) rotate(-24deg);
+  }
+}
+
+@keyframes promiseSlipRise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 42px) rotate(-10deg) scale(0.84);
+  }
+
+  28% {
+    opacity: 1;
+  }
+
+  68% {
+    opacity: 1;
+    transform: translate(-50%, -118px) rotate(7deg) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -148px) rotate(12deg) scale(0.96);
+  }
+}
+
+@keyframes promiseSparkle {
+  0%, 100% {
+    opacity: 0.25;
+    transform: translateY(0) scale(0.85);
+  }
+
+  50% {
+    opacity: 0.95;
+    transform: translateY(-12px) scale(1.15);
   }
 }
 

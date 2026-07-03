@@ -308,13 +308,16 @@ function setupPromiseJar() {
   if (!button || !note || !data.promises?.length) return;
   let index = 0;
   const showPromise = () => {
+    button.classList.remove("is-opening");
+    void button.offsetWidth;
+    button.classList.add("is-opening");
     note.classList.remove("is-showing");
     window.setTimeout(() => {
       note.textContent = data.promises[index];
       count.textContent = `${index + 1} / ${data.promises.length}`;
       note.classList.add("is-showing");
       index = (index + 1) % data.promises.length;
-    }, 120);
+    }, 420);
   };
   button.addEventListener("click", showPromise);
   note.textContent = data.promises[0];
