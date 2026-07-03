@@ -63,6 +63,13 @@ function setupLogin() {
       return;
     }
     promiseLoginSeed = Date.now();
+    const toast = $("#unlockToast");
+    if (toast) {
+      toast.classList.remove("is-visible");
+      void toast.offsetWidth;
+      toast.classList.add("is-visible");
+      window.setTimeout(() => toast.classList.remove("is-visible"), 3200);
+    }
     $("#loginScreen").classList.add("is-hidden");
     tryPlayMusic();
     $("#introScreen").hidden = false;

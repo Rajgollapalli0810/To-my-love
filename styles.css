@@ -373,6 +373,55 @@ video {
   z-index: 3;
 }
 
+.unlock-toast {
+  position: fixed;
+  left: 50%;
+  top: clamp(18px, 5vw, 42px);
+  z-index: 120;
+  width: min(560px, calc(100% - 28px));
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid rgba(255, 211, 111, 0.48);
+  border-radius: 999px;
+  padding: 12px 18px;
+  color: white;
+  background:
+    radial-gradient(circle at 12% 50%, rgba(255, 211, 111, 0.34), transparent 24%),
+    linear-gradient(135deg, rgba(184, 23, 98, 0.94), rgba(117, 32, 76, 0.92));
+  box-shadow: 0 24px 70px rgba(117, 32, 76, 0.34);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -18px) scale(0.96);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+
+.unlock-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.unlock-toast span {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--plum);
+  background: white;
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
+  font-size: 20px;
+}
+
+.unlock-toast p {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(20px, 4vw, 30px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
 @keyframes hangingHeartSway {
   0%, 100% {
     transform: rotate(-4deg);
