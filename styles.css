@@ -376,30 +376,30 @@ video {
 .unlock-toast {
   position: fixed;
   left: 50%;
-  top: clamp(18px, 5vw, 42px);
+  top: 50%;
   z-index: 120;
-  width: min(560px, calc(100% - 28px));
+  width: min(620px, calc(100% - 28px));
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 12px;
   align-items: center;
   border: 1px solid rgba(255, 211, 111, 0.48);
-  border-radius: 999px;
-  padding: 12px 18px;
+  border-radius: 8px;
+  padding: clamp(16px, 4vw, 24px);
   color: white;
   background:
     radial-gradient(circle at 12% 50%, rgba(255, 211, 111, 0.34), transparent 24%),
     linear-gradient(135deg, rgba(184, 23, 98, 0.94), rgba(117, 32, 76, 0.92));
-  box-shadow: 0 24px 70px rgba(117, 32, 76, 0.34);
+  box-shadow: 0 34px 100px rgba(117, 32, 76, 0.42);
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, -18px) scale(0.96);
-  transition: opacity 260ms ease, transform 260ms ease;
+  transform: translate(-50%, -50%) scale(0.92);
+  transition: opacity 900ms ease, transform 900ms ease;
 }
 
 .unlock-toast.is-visible {
   opacity: 1;
-  transform: translate(-50%, 0) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .unlock-toast span {

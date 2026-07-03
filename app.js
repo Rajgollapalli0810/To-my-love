@@ -68,7 +68,7 @@ function setupLogin() {
       toast.classList.remove("is-visible");
       void toast.offsetWidth;
       toast.classList.add("is-visible");
-      window.setTimeout(() => toast.classList.remove("is-visible"), 3200);
+      window.setTimeout(() => toast.classList.remove("is-visible"), 4600);
     }
     $("#loginScreen").classList.add("is-hidden");
     tryPlayMusic();
