@@ -895,6 +895,7 @@ video {
 .reasons-grid,
 .dreams-board,
 .book-showcase,
+.promise-jar-wrap,
 .playlist,
 .timeline,
 .split-section {
@@ -914,6 +915,7 @@ video {
 .dream-card,
 .book-cover,
 .book-reader,
+.promise-note-card,
 .timeline-item,
 .playlist-item,
 .note-card,
@@ -930,6 +932,7 @@ video {
 .dream-card::before,
 .book-cover::before,
 .book-reader::before,
+.promise-note-card::before,
 .timeline-item::before,
 .playlist-item::before,
 .note-card::before {
@@ -1245,6 +1248,161 @@ video {
   border: 1px solid rgba(117, 32, 76, 0.16);
   border-radius: 8px;
   background: #fff;
+}
+
+.promise-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(255, 211, 111, 0.24), transparent 28%),
+    radial-gradient(circle at 84% 72%, rgba(239, 79, 136, 0.2), transparent 32%),
+    linear-gradient(135deg, rgba(255, 241, 248, 0.92), rgba(255, 250, 252, 0.96));
+}
+
+.promise-section::before {
+  content: "I promise";
+  position: absolute;
+  left: clamp(16px, 6vw, 90px);
+  bottom: clamp(18px, 6vw, 74px);
+  color: rgba(117, 32, 76, 0.08);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(70px, 15vw, 190px);
+  font-weight: 700;
+  line-height: 0.85;
+  pointer-events: none;
+}
+
+.promise-jar-wrap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(20px, 5vw, 48px);
+  align-items: center;
+}
+
+.promise-jar {
+  min-height: 430px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 16px;
+  border: 0;
+  color: var(--plum);
+  background: transparent;
+  cursor: pointer;
+}
+
+.jar-lid {
+  width: 154px;
+  height: 30px;
+  border-radius: 8px 8px 14px 14px;
+  background: linear-gradient(135deg, var(--gold), #fff0b6);
+  box-shadow: 0 12px 24px rgba(117, 32, 76, 0.16);
+}
+
+.jar-glass {
+  position: relative;
+  width: min(260px, 72vw);
+  aspect-ratio: 0.72;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 34px 34px 74px 74px;
+  background:
+    radial-gradient(circle at 34% 18%, rgba(255, 255, 255, 0.74), transparent 16%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.62), rgba(255, 224, 238, 0.28));
+  box-shadow: inset 0 0 34px rgba(255, 255, 255, 0.58), 0 30px 80px rgba(139, 31, 84, 0.18);
+  overflow: hidden;
+}
+
+.jar-glass i {
+  position: absolute;
+  width: 88px;
+  height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #fff7cf, #ffdce9);
+  box-shadow: 0 12px 24px rgba(117, 32, 76, 0.1);
+}
+
+.jar-glass i:nth-child(1) {
+  left: 38px;
+  bottom: 86px;
+  transform: rotate(-14deg);
+}
+
+.jar-glass i:nth-child(2) {
+  right: 34px;
+  bottom: 120px;
+  transform: rotate(16deg);
+}
+
+.jar-glass i:nth-child(3) {
+  left: 74px;
+  bottom: 156px;
+  transform: rotate(4deg);
+}
+
+.jar-glass strong {
+  position: relative;
+  z-index: 1;
+  color: rgba(239, 79, 136, 0.9);
+  font-size: 74px;
+  line-height: 1;
+  text-shadow: 0 14px 30px rgba(117, 32, 76, 0.18);
+  animation: promiseHeartBeat 1.6s ease-in-out infinite;
+}
+
+.promise-jar small {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.promise-note-card {
+  min-height: 290px;
+  display: grid;
+  align-content: center;
+  gap: 16px;
+  padding: clamp(24px, 5vw, 42px);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 244, 249, 0.86));
+}
+
+.promise-note-card #promiseNote {
+  margin: 0;
+  color: var(--plum);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.08;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.promise-note-card #promiseNote.is-showing {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#promiseCount {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@keyframes promiseHeartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.12);
+  }
 }
 
 .timeline {
@@ -2049,6 +2207,10 @@ video {
     grid-template-columns: 1fr;
   }
 
+  .promise-jar-wrap {
+    grid-template-columns: 1fr;
+  }
+
   .reasons-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -2135,6 +2297,14 @@ video {
     min-height: 420px;
   }
 
+  .promise-jar {
+    min-height: 340px;
+  }
+
+  .promise-note-card #promiseNote {
+    font-size: clamp(28px, 9vw, 42px);
+  }
+
   .playlist-item em {
     grid-column: 2;
   }
@@ -2177,6 +2347,7 @@ video {
   .dream-card,
   .book-cover,
   .book-reader,
+  .promise-note-card,
   .timeline-item,
   .reason-card {
     padding: 18px;

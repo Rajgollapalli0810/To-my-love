@@ -10,7 +10,7 @@
     <link rel="preload" as="image" href="assets/my-love/love%20of%20my%20life.png?v=20260702-fast-media" />
     <link rel="preload" as="audio" href="assets/music/background-music.mp3?v=20260702-fast-media" />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260702-urge-song" />
+    <link rel="stylesheet" href="styles.css?v=20260703-promise-jar" />
   </head>
   <body>
     <div class="heart-sky" aria-hidden="true">
@@ -113,6 +113,7 @@
         <a href="#gallery">Gallery</a>
         <a href="#notes">Notes</a>
         <a href="#book">Book</a>
+        <a href="#promises">Promises</a>
         <a href="#reasons">Reasons</a>
         <a href="#neet-pg">NEET PG</a>
         <a href="#birthday">Birthday</a>
@@ -219,6 +220,32 @@
         </div>
       </section>
 
+      <section class="section promise-section" id="promises">
+        <div class="section-heading">
+          <p class="eyebrow">Promise jar</p>
+          <p class="chapter-subtitle" data-subtitle-for="promises"></p>
+          <h2>Little Promises I Will Keep</h2>
+          <p class="section-intro">Tap the jar whenever your heart needs a promise from mine.</p>
+        </div>
+        <div class="promise-jar-wrap">
+          <button class="promise-jar" id="promiseJarButton" type="button" aria-label="Reveal a promise">
+            <span class="jar-lid"></span>
+            <span class="jar-glass">
+              <i></i>
+              <i></i>
+              <i></i>
+              <strong>&hearts;</strong>
+            </span>
+            <small>Tap the jar</small>
+          </button>
+          <article class="promise-note-card">
+            <p class="eyebrow">A promise from me</p>
+            <p id="promiseNote"></p>
+            <span id="promiseCount"></span>
+          </article>
+        </div>
+      </section>
+
       <section class="section playlist-section" id="playlist">
         <div class="section-heading">
           <p class="eyebrow">Our playlist</p>
@@ -296,7 +323,7 @@
 
       <div class="chapter-controls" id="chapterControls" aria-label="Chapter controls">
         <button id="prevChapter" type="button">Previous</button>
-        <span id="chapterProgress">Chapter 1 of 12</span>
+        <span id="chapterProgress">Chapter 1 of 13</span>
         <button id="nextChapter" type="button">Next</button>
       </div>
     </main>
@@ -315,7 +342,7 @@
 
     <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
-    <script src="data.js?v=20260702-urge-song"></script>
-    <script src="app.js?v=20260702-urge-song"></script>
+    <script src="data.js?v=20260703-promise-jar"></script>
+    <script src="app.js?v=20260703-promise-jar"></script>
   </body>
 </html>

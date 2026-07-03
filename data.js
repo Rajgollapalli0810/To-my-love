@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260702-urge-song",
+  assetVersion: "20260703-promise-jar",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
@@ -34,6 +34,7 @@ window.LOVE_SITE_DATA = {
     gallery: "The moments I never want time to take away.",
     notes: "Little letters for the days your heart needs me close.",
     book: "A memory you already read once, now kept forever inside our world.",
+    promises: "Small vows from my heart, saved for every version of our future.",
     playlist: "Songs that carry pieces of us.",
     reasons: "A hundred ways my heart admires you.",
     dreams: "The future I keep imagining with you beside me.",
@@ -162,6 +163,16 @@ window.LOVE_SITE_DATA = {
   playlist: [
     { title: "Our Song", artist: "For Ever Mine", link: "assets/music/Our Song.mp3" },
     { title: "The Birthday Song", artist: "Birthday Surprise", link: "assets/music/Birthday song.mp3" }
+  ],
+  promises: [
+    "I promise to choose you with patience, not only on easy days, but especially on the days life feels heavy.",
+    "I promise to protect your dreams like they are part of my own heart.",
+    "I promise to remind you how deeply you are loved whenever the world makes you forget it.",
+    "I promise to be your safest place, your calm after stress, and your hand to hold through every season.",
+    "I promise to celebrate your victories loudly and stand beside you quietly when you need peace.",
+    "I promise to never make you feel alone in the life we are building together.",
+    "I promise to keep learning you, understanding you, and loving every new version of you.",
+    "I promise that wherever life takes us, my heart will keep finding its way back to you."
   ],
   reasons: [
     "I love the way your smile makes every bad day disappear.",

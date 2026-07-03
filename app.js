@@ -7,6 +7,7 @@ const sectionIds = [
   "gallery",
   "notes",
   "book",
+  "promises",
   "playlist",
   "reasons",
   "dreams",
@@ -298,6 +299,28 @@ function renderBook() {
   $("#bookOpenLink").href = file;
   $("#bookDownloadLink").href = file;
   $("#bookPdf").data = file;
+}
+
+function setupPromiseJar() {
+  const button = $("#promiseJarButton");
+  const note = $("#promiseNote");
+  const count = $("#promiseCount");
+  if (!button || !note || !data.promises?.length) return;
+  let index = 0;
+  const showPromise = () => {
+    note.classList.remove("is-showing");
+    window.setTimeout(() => {
+      note.textContent = data.promises[index];
+      count.textContent = `${index + 1} / ${data.promises.length}`;
+      note.classList.add("is-showing");
+      index = (index + 1) % data.promises.length;
+    }, 120);
+  };
+  button.addEventListener("click", showPromise);
+  note.textContent = data.promises[0];
+  count.textContent = `1 / ${data.promises.length}`;
+  note.classList.add("is-showing");
+  index = 1;
 }
 
 function renderTimeline() {
@@ -704,6 +727,7 @@ function init() {
   renderPlaylist();
   renderReasons();
   renderDreams();
+  setupPromiseJar();
   setupProposalFlow();
   setupMoodBooster();
   setupHeartbeat();
