@@ -180,7 +180,26 @@ function showChapter(id, updateHash = true) {
   $("#nextChapter").textContent = index === sectionIds.length - 1 ? "Finale" : "Next";
   $("#chapterProgress").textContent = `Chapter ${index + 1} of ${sectionIds.length}`;
   if (updateHash) history.replaceState(null, "", `#${targetId}`);
+  animateChapterSubtitle(targetId);
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function animateChapterSubtitle(sectionId) {
+  const subtitle = document.querySelector(`#${sectionId} .chapter-subtitle`);
+  if (!subtitle) return;
+  const text = subtitle.dataset.fullText || subtitle.textContent.trim();
+  if (!text) return;
+  subtitle.dataset.fullText = text;
+  subtitle.innerHTML = "";
+  [...text].forEach((character, index) => {
+    const span = create("span");
+    span.textContent = character === " " ? "\u00a0" : character;
+    span.style.setProperty("--subtitle-delay", `${index * 0.035}s`);
+    subtitle.append(span);
+  });
+  subtitle.classList.remove("is-writing");
+  void subtitle.offsetWidth;
+  subtitle.classList.add("is-writing");
 }
 
 function pauseStoryVideo() {
