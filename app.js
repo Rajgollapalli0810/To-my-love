@@ -35,12 +35,59 @@ function versionedAsset(path) {
   return `${path}${joiner}v=${encodeURIComponent(data.assetVersion || "1")}`;
 }
 
+function parseLoveDate(value) {
+  const parts = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
+  if (parts) {
+    return new Date(
+      Number(parts[1]),
+      Number(parts[2]) - 1,
+      Number(parts[3]),
+      Number(parts[4] || 0),
+      Number(parts[5] || 0),
+      Number(parts[6] || 0)
+    );
+  }
+  return new Date(value);
+}
+
 function formatDaysTogether() {
-  const start = new Date(data.couple.anniversary);
-  const target = data.couple.birthday ? new Date(data.couple.birthday) : new Date();
+  const start = parseLoveDate(data.couple.anniversary);
+  const target = new Date();
   if (Number.isNaN(start.getTime())) return "Every day";
   const diff = target.setHours(0, 0, 0, 0) - start.setHours(0, 0, 0, 0);
   return `${Math.max(1, Math.floor(diff / 86400000))}`;
+}
+
+function getCalendarDuration(start, end) {
+  let years = end.getFullYear() - start.getFullYear();
+  let months = end.getMonth() - start.getMonth();
+  let days = end.getDate() - start.getDate();
+  let hours = end.getHours() - start.getHours();
+  let minutes = end.getMinutes() - start.getMinutes();
+  let seconds = end.getSeconds() - start.getSeconds();
+
+  if (seconds < 0) {
+    seconds += 60;
+    minutes -= 1;
+  }
+  if (minutes < 0) {
+    minutes += 60;
+    hours -= 1;
+  }
+  if (hours < 0) {
+    hours += 24;
+    days -= 1;
+  }
+  if (days < 0) {
+    days += new Date(end.getFullYear(), end.getMonth(), 0).getDate();
+    months -= 1;
+  }
+  if (months < 0) {
+    months += 12;
+    years -= 1;
+  }
+
+  return [years, months, days, hours, minutes, seconds];
 }
 
 function imageCardFallback(element) {
@@ -280,25 +327,13 @@ function renderRelationshipCounter() {
   const base = data.relationshipCounter;
   if (!target || !base) return;
   const labels = ["Years", "Months", "Days", "Hours", "Minutes", "Seconds"];
-  const start = Date.now();
-  const startingSeconds =
-    (((((base.years * 12 + base.months) * 30 + base.days) * 24 + base.hours) * 60 + base.minutes) * 60) +
-    base.seconds;
+  const startDate = parseLoveDate(base.startDate || data.couple.anniversary);
+  if (Number.isNaN(startDate.getTime())) return;
 
   const render = () => {
-    let remaining = startingSeconds + Math.floor((Date.now() - start) / 1000);
-    const seconds = remaining % 60;
-    remaining = Math.floor(remaining / 60);
-    const minutes = remaining % 60;
-    remaining = Math.floor(remaining / 60);
-    const hours = remaining % 24;
-    remaining = Math.floor(remaining / 24);
-    const days = remaining % 30;
-    remaining = Math.floor(remaining / 30);
-    const months = remaining % 12;
-    const years = Math.floor(remaining / 12);
-    const values = [years, months, days, hours, minutes, seconds];
-    target.innerHTML = `<p>${base.title}</p><div>${values.map((value, index) => `<span><strong>${value}</strong><em>${labels[index]}</em></span>`).join("")}</div>`;
+    const targetDate = new Date();
+    const values = getCalendarDuration(startDate, targetDate);
+    target.innerHTML = `<p>${base.title}</p>${base.dateLine ? `<small>${base.dateLine}</small>` : ""}<div>${values.map((value, index) => `<span><strong>${value}</strong><em>${labels[index]}</em></span>`).join("")}</div>`;
   };
 
   render();

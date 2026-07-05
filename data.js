@@ -1,14 +1,14 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260705-relationship-counter",
+  assetVersion: "20260705-live-love-counter",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
     partnerName: "Dr.Amulya Raj",
     title: "For Ever Mine",
     initials: "AR",
-    anniversary: "2019-10-21",
+    anniversary: "2019-05-20",
     birthday: "2026-07-08"
   },
   login: {
@@ -56,7 +56,7 @@ window.LOVE_SITE_DATA = {
   },
   stats: [
     { label: "Days together", type: "daysTogether" },
-    { label: "Years of love", value: "Almost 7" },
+    { label: "Years of love", value: "7+ Years" },
     { label: "Prayer In My Heart", value: "You And Me" },
     { label: "Promise I Carry", value: "A Life With You" },
     { label: "Dream I Protect", value: "Our Future" },
@@ -66,12 +66,8 @@ window.LOVE_SITE_DATA = {
   ],
   relationshipCounter: {
     title: "We've been together for",
-    years: 4,
-    months: 8,
-    days: 21,
-    hours: 13,
-    minutes: 48,
-    seconds: 12
+    dateLine: "Counting every heartbeat since 20 May 2019, 12:00 AM",
+    startDate: "2019-05-20T00:00:00"
   },
   timeline: [
     { date: "The beginning", title: "First Meet", text: "Some meetings feel normal in the moment, but later the heart understands they were never ordinary. That first meet became the soft beginning of everything I now call love." },
