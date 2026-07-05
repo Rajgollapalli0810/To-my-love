@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260705-qr-hunt",
+  assetVersion: "20260705-static-qr",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
@@ -58,6 +58,7 @@ window.LOVE_SITE_DATA = {
   qrHunt: [
     {
       id: "blue-sky-beauty",
+      qrImage: "assets/qr-codes/blue-sky-beauty.png",
       file: "assets/qr-hunt/Even A Blue Sky is not enough to Match Your Beauty.jpg",
       type: "image",
       feeling: "Even A Blue Sky is not enough to Match Your Beauty",
@@ -65,6 +66,7 @@ window.LOVE_SITE_DATA = {
     },
     {
       id: "tiredness-blessing",
+      qrImage: "assets/qr-codes/tiredness-blessing.png",
       file: "assets/qr-hunt/Even Tiredness Is  a Blessing to me.jpg",
       type: "image",
       feeling: "Even Tiredness Is a Blessing to me",
@@ -72,6 +74,7 @@ window.LOVE_SITE_DATA = {
     },
     {
       id: "seeing-us",
+      qrImage: "assets/qr-codes/seeing-us.png",
       file: "assets/qr-hunt/From There Ive started seeing You as US.jpg",
       type: "image",
       feeling: "From There Ive started seeing You as US",
@@ -79,6 +82,7 @@ window.LOVE_SITE_DATA = {
     },
     {
       id: "saved-memory",
+      qrImage: "assets/qr-codes/saved-memory.png",
       file: "assets/qr-hunt/IMG-20220325-WA0039.jpg",
       type: "image",
       feeling: "A Memory My Heart Saved",
@@ -86,6 +90,7 @@ window.LOVE_SITE_DATA = {
     },
     {
       id: "loop-look",
+      qrImage: "assets/qr-codes/loop-look.png",
       file: "assets/qr-hunt/Look That Put Me In A Loop.jpg",
       type: "image",
       feeling: "Look That Put Me In A Loop",
@@ -93,6 +98,7 @@ window.LOVE_SITE_DATA = {
     },
     {
       id: "love-letter",
+      qrImage: "assets/qr-codes/love-letter.png",
       file: "assets/qr-hunt/Love Letter To Dr.Amulya Raj Garu.pdf",
       type: "pdf",
       feeling: "Love Letter To Dr.Amulya Raj Garu",
@@ -100,6 +106,7 @@ window.LOVE_SITE_DATA = {
     },
     {
       id: "first-kid-forever",
+      qrImage: "assets/qr-codes/first-kid-forever.png",
       file: "assets/qr-hunt/My first Kid Forever.jpg",
       type: "image",
       feeling: "My first Kid Forever",
@@ -107,6 +114,7 @@ window.LOVE_SITE_DATA = {
     },
     {
       id: "mehabooba",
+      qrImage: "assets/qr-codes/mehabooba.png",
       file: "assets/qr-hunt/My Mehabooba.jpg",
       type: "image",
       feeling: "My Mehabooba",
@@ -114,6 +122,7 @@ window.LOVE_SITE_DATA = {
     },
     {
       id: "blackhole-pull",
+      qrImage: "assets/qr-codes/blackhole-pull.png",
       file: "assets/qr-hunt/The Sexy Figure pulls me with force of a blackhole.jpg",
       type: "image",
       feeling: "The Sexy Figure pulls me with force of a blackhole",
@@ -121,6 +130,7 @@ window.LOVE_SITE_DATA = {
     },
     {
       id: "again-and-again",
+      qrImage: "assets/qr-codes/again-and-again.png",
       file: "assets/qr-hunt/Want Again and Again.mp4",
       type: "video",
       feeling: "Want Again and Again",

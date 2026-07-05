@@ -423,7 +423,13 @@ function renderQrHunt() {
     const article = create("article", "qr-hunt-card");
     const code = create("div", "qr-code");
     const targetUrl = buildQrHuntUrl(item);
-    if (window.QRCode) {
+    if (item.qrImage) {
+      const qrImage = create("img");
+      qrImage.src = versionedAsset(item.qrImage);
+      qrImage.alt = `QR code for ${item.feeling}`;
+      qrImage.loading = "lazy";
+      code.append(qrImage);
+    } else if (window.QRCode) {
       new QRCode(code, {
         text: targetUrl,
         width: 156,
