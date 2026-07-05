@@ -1721,6 +1721,7 @@ video {
   cursor: pointer;
   overflow: hidden;
   touch-action: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .scratch-card::before {
@@ -1791,6 +1792,11 @@ video {
   animation: scratchGlow 0.58s ease both;
 }
 
+.scratch-card.is-scratching {
+  transform: translateY(-2px) rotate(-0.4deg);
+  box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.16), 0 24px 58px rgba(139, 31, 84, 0.26);
+}
+
 .scratch-card.is-revealed {
   pointer-events: none;
   animation: scratchReveal 0.54s ease both;
@@ -1852,17 +1858,52 @@ video {
 .qr-unlock-card {
   display: grid;
   gap: 14px;
-  margin: 0 auto 22px;
+  width: min(920px, calc(100vw - 28px));
+  max-height: calc(100vh - 34px);
+  overflow: auto;
+  margin: 0;
   padding: clamp(20px, 4vw, 34px);
   text-align: center;
-  transform: translateY(12px);
+  transform: translateY(24px) scale(0.96);
   opacity: 0;
   transition: opacity 260ms ease, transform 260ms ease;
 }
 
 .qr-unlock-card.is-visible {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   opacity: 1;
+}
+
+.scratch-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 92;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 211, 111, 0.24), transparent 28%),
+    rgba(58, 9, 37, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.scratch-popup[hidden] {
+  display: none;
+}
+
+.scratch-popup-close {
+  position: sticky;
+  top: 0;
+  justify-self: end;
+  z-index: 2;
+  border: 1px solid rgba(139, 31, 84, 0.16);
+  border-radius: 999px;
+  min-height: 38px;
+  padding: 0 15px;
+  color: var(--plum);
+  background: rgba(255, 255, 255, 0.9);
+  font-weight: 900;
+  cursor: pointer;
 }
 
 .qr-unlock-media {
@@ -3314,6 +3355,17 @@ video {
 
   .qr-unlock-media object {
     height: 520px;
+  }
+
+  .qr-unlock-card {
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    padding: 18px;
+  }
+
+  .qr-unlock-media img,
+  .qr-unlock-media video {
+    max-height: 48vh;
   }
 
   .promise-jar {

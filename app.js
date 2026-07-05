@@ -464,12 +464,13 @@ function wireScratchCard(card, id) {
 }
 
 function showQrUnlock(id) {
+  const popup = $("#scratchPopup");
   const card = $("#qrUnlockCard");
   const media = $("#qrUnlockMedia");
   const title = $("#qrUnlockTitle");
   const message = $("#qrUnlockMessage");
   const actions = $("#qrUnlockActions");
-  if (!card || !media || !id) return;
+  if (!popup || !card || !media || !id) return;
   const item = data.qrHunt?.find((entry) => entry.id === id);
   if (!item) return;
   const file = versionedAsset(item.file);
@@ -504,10 +505,22 @@ function showQrUnlock(id) {
   open.rel = "noopener";
   open.textContent = item.type === "pdf" ? "Open letter" : item.type === "video" ? "Open video" : "Open photo";
   actions.append(open);
-  card.hidden = false;
+  popup.hidden = false;
   card.classList.remove("is-visible");
   requestAnimationFrame(() => card.classList.add("is-visible"));
   launchConfetti();
+}
+
+function closeScratchPopup() {
+  const popup = $("#scratchPopup");
+  const card = $("#qrUnlockCard");
+  if (!popup || popup.hidden) return;
+  card.classList.remove("is-visible");
+  popup.querySelectorAll("video").forEach((video) => video.pause());
+  window.setTimeout(() => {
+    popup.hidden = true;
+    $("#qrUnlockMedia").innerHTML = "";
+  }, 220);
 }
 
 function setupPromiseJar() {
@@ -932,6 +945,16 @@ function setupGalleryLightbox() {
   });
 }
 
+function setupScratchPopup() {
+  $("#scratchPopupClose").addEventListener("click", closeScratchPopup);
+  $("#scratchPopup").addEventListener("click", (event) => {
+    if (event.target === $("#scratchPopup")) closeScratchPopup();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !$("#scratchPopup").hidden) closeScratchPopup();
+  });
+}
+
 function setupHeartTrail() {
   document.addEventListener("pointerdown", (event) => {
     if (!document.body.classList.contains("site-open")) return;
@@ -965,6 +988,7 @@ function init() {
   setupHeartbeat();
   setupHoldHeart();
   setupGalleryLightbox();
+  setupScratchPopup();
   setupHeartTrail();
   $("#confettiButton").addEventListener("click", launchConfetti);
   $("#neetConfettiButton").addEventListener("click", launchConfetti);

@@ -7,10 +7,10 @@
     <title>Our Forever Story</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="image" href="assets/my-love/love%20of%20my%20life.png?v=20260705-rub-scratch-cards" />
-    <link rel="preload" as="audio" href="assets/music/background-music.mp3?v=20260705-rub-scratch-cards" />
+    <link rel="preload" as="image" href="assets/my-love/love%20of%20my%20life.png?v=20260705-scratch-popup" />
+    <link rel="preload" as="audio" href="assets/music/background-music.mp3?v=20260705-scratch-popup" />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260705-rub-scratch-cards" />
+    <link rel="stylesheet" href="styles.css?v=20260705-scratch-popup" />
   </head>
   <body>
     <div class="heart-sky" aria-hidden="true">
@@ -243,13 +243,6 @@
           <h2>Scratch To Unlock My Secrets</h2>
           <p class="section-intro">Each card hides one feeling I saved only for you.</p>
         </div>
-        <article class="qr-unlock-card" id="qrUnlockCard" hidden>
-          <p class="eyebrow">Secret unlocked</p>
-          <div class="qr-unlock-media" id="qrUnlockMedia"></div>
-          <h3 id="qrUnlockTitle"></h3>
-          <p id="qrUnlockMessage"></p>
-          <div class="qr-unlock-actions" id="qrUnlockActions"></div>
-        </article>
         <div class="qr-hunt-grid" id="qrHuntGrid"></div>
       </section>
 
@@ -380,9 +373,20 @@
       </figure>
     </div>
 
+    <div class="scratch-popup" id="scratchPopup" hidden>
+      <article class="qr-unlock-card" id="qrUnlockCard">
+        <button class="scratch-popup-close" id="scratchPopupClose" type="button" aria-label="Close secret">Close</button>
+        <p class="eyebrow">Secret unlocked</p>
+        <div class="qr-unlock-media" id="qrUnlockMedia"></div>
+        <h3 id="qrUnlockTitle"></h3>
+        <p id="qrUnlockMessage"></p>
+        <div class="qr-unlock-actions" id="qrUnlockActions"></div>
+      </article>
+    </div>
+
     <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
-    <script src="data.js?v=20260705-rub-scratch-cards"></script>
-    <script src="app.js?v=20260705-rub-scratch-cards"></script>
+    <script src="data.js?v=20260705-scratch-popup"></script>
+    <script src="app.js?v=20260705-scratch-popup"></script>
   </body>
 </html>
