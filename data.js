@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260705-gold-subtitles-birthday-theme",
+  assetVersion: "20260705-neet-theme-subtitles-normal",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",

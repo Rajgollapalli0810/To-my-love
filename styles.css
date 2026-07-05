@@ -197,55 +197,15 @@ video {
 .chapter-subtitle {
   width: min(680px, 100%);
   margin: -2px 0 14px;
-  color: #ffd978;
+  color: var(--deep-gold);
   font-size: 14px;
   font-weight: 800;
   line-height: 1.55;
-  text-shadow:
-    0 0 8px rgba(255, 211, 111, 0.5),
-    0 0 18px rgba(255, 176, 70, 0.34),
-    0 2px 10px rgba(117, 32, 76, 0.12);
 }
 
 .hero .chapter-subtitle,
 .birthday-card .chapter-subtitle {
-  color: #ffd978;
-}
-
-.chapter-subtitle span {
-  display: inline-block;
-  opacity: 1;
-}
-
-.chapter-subtitle.is-writing span {
-  opacity: 0;
-  transform: translateY(8px);
-  animation: subtitleLetterGlow 0.55s ease forwards;
-  animation-delay: var(--subtitle-delay);
-}
-
-@keyframes subtitleLetterGlow {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-    filter: blur(3px);
-    text-shadow: 0 0 0 rgba(255, 211, 111, 0);
-  }
-
-  72% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-    text-shadow:
-      0 0 12px rgba(255, 211, 111, 0.86),
-      0 0 28px rgba(255, 176, 70, 0.55);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
+  color: rgba(255, 226, 154, 0.92);
 }
 
 .login-screen,
@@ -2831,10 +2791,10 @@ video {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 18% 18%, rgba(255, 211, 111, 0.32), transparent 30%),
-    radial-gradient(circle at 84% 68%, rgba(239, 79, 136, 0.24), transparent 34%),
-    radial-gradient(circle at 50% 44%, rgba(255, 255, 255, 0.72), transparent 22%),
-    linear-gradient(135deg, #fff5f9 0%, #ffe0ec 48%, #fff1d2 100%);
+    radial-gradient(circle at 50% 44%, rgba(255, 211, 111, 0.42), transparent 18%),
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.22), transparent 32%),
+    linear-gradient(rgba(78, 10, 48, 0.76), rgba(117, 32, 76, 0.88)),
+    linear-gradient(135deg, var(--plum), var(--rose));
   position: relative;
   overflow: hidden;
 }
@@ -2844,7 +2804,7 @@ video {
   position: absolute;
   inset: -20% 20% auto;
   height: 78%;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.48), transparent 62%);
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.24), transparent 62%);
   transform: perspective(700px) rotateX(62deg);
   pointer-events: none;
 }
@@ -2853,18 +2813,21 @@ video {
   display: grid;
   place-items: center;
   background:
-    linear-gradient(120deg, rgba(217, 164, 65, 0.2), transparent 38%),
-    linear-gradient(260deg, rgba(125, 111, 178, 0.2), transparent 42%),
-    #fffdf8;
+    radial-gradient(circle at 18% 18%, rgba(255, 211, 111, 0.32), transparent 30%),
+    radial-gradient(circle at 84% 68%, rgba(239, 79, 136, 0.24), transparent 34%),
+    radial-gradient(circle at 50% 44%, rgba(255, 255, 255, 0.72), transparent 22%),
+    linear-gradient(135deg, #fff5f9 0%, #ffe0ec 48%, #fff1d2 100%);
 }
 
 .neet-card {
   width: min(920px, 100%);
-  border: 1px solid rgba(217, 164, 65, 0.32);
+  border: 1px solid rgba(255, 211, 111, 0.46);
   border-radius: 8px;
   padding: clamp(26px, 6vw, 64px);
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 24px 70px rgba(73, 36, 54, 0.13);
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 211, 111, 0.18), transparent 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 244, 249, 0.88));
+  box-shadow: 0 34px 100px rgba(139, 31, 84, 0.18), inset 0 0 0 1px rgba(255, 211, 111, 0.18);
   position: relative;
   overflow: hidden;
 }
@@ -2898,6 +2861,10 @@ video {
   font-size: 18px;
   line-height: 1.8;
   position: relative;
+}
+
+.neet-card .chapter-subtitle {
+  color: var(--deep-gold);
 }
 
 .neet-card button {
@@ -2948,12 +2915,12 @@ video {
 .birthday-card {
   width: min(760px, 100%);
   padding: clamp(26px, 6vw, 62px);
-  color: var(--ink);
+  color: white;
   background:
-    radial-gradient(circle at 18% 14%, rgba(255, 211, 111, 0.18), transparent 30%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 244, 249, 0.88));
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 211, 111, 0.46);
-  box-shadow: 0 34px 100px rgba(139, 31, 84, 0.18), inset 0 0 0 1px rgba(255, 211, 111, 0.18);
+  box-shadow: 0 34px 100px rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(255, 211, 111, 0.18);
   backdrop-filter: blur(18px);
   position: relative;
   overflow: hidden;
@@ -2964,7 +2931,7 @@ video {
   position: absolute;
   right: clamp(18px, 5vw, 56px);
   top: clamp(12px, 4vw, 34px);
-  color: rgba(239, 79, 136, 0.12);
+  color: rgba(255, 255, 255, 0.12);
   font-size: clamp(90px, 18vw, 220px);
   line-height: 1;
   pointer-events: none;
@@ -2986,7 +2953,7 @@ video {
 
 .final-signature {
   margin: 24px 0 0;
-  color: var(--plum);
+  color: white;
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(28px, 5vw, 46px);
   line-height: 1;
@@ -3025,7 +2992,7 @@ video {
   height: 8px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(117, 32, 76, 0.12);
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .hold-heart-progress span {
@@ -3033,14 +3000,14 @@ video {
   width: 0%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--rose), var(--gold));
+  background: linear-gradient(90deg, white, var(--gold));
 }
 
 #holdHeartMessage {
   display: none;
   max-width: 620px;
   margin: 0;
-  color: var(--plum);
+  color: white;
   font-size: 18px;
   font-weight: 800;
   line-height: 1.75;
@@ -3053,7 +3020,7 @@ video {
 
 .birthday-card .eyebrow,
 .birthday-card p {
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .proposal-game {
@@ -3061,33 +3028,33 @@ video {
   min-height: 250px;
   margin-top: 28px;
   padding: clamp(20px, 4vw, 34px);
-  border: 1px solid rgba(255, 211, 111, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 8px;
   background:
     radial-gradient(circle at 18% 18%, rgba(255, 211, 111, 0.22), transparent 28%),
-    rgba(255, 255, 255, 0.64);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62), 0 20px 58px rgba(139, 31, 84, 0.12);
+    rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
   overflow: hidden;
 }
 
 .proposal-intro {
   margin: 0 0 12px;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.78);
   font-weight: 800;
 }
 
 .proposal-game h3 {
   width: min(620px, 100%);
   margin: 0 0 22px;
-  color: var(--plum);
+  color: white;
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(34px, 6vw, 68px);
   line-height: 0.96;
 }
 
 .proposal-game.is-final h3 {
-  color: var(--rose);
-  text-shadow: 0 12px 30px rgba(255, 211, 111, 0.2);
+  color: #ffe6f1;
+  text-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
 .proposal-actions {
@@ -3108,14 +3075,14 @@ video {
 }
 
 #proposalYes {
-  color: white;
-  background: linear-gradient(135deg, var(--rose), var(--plum));
-  box-shadow: 0 14px 34px rgba(139, 31, 84, 0.2);
+  color: var(--plum);
+  background: white;
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0.18);
 }
 
 #proposalNo {
-  color: var(--plum);
-  background: rgba(255, 211, 111, 0.24);
+  color: white;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 #proposalNo.is-running {
@@ -3127,7 +3094,7 @@ video {
 .proposal-answer {
   display: none;
   margin: 20px 0 0;
-  color: var(--plum);
+  color: white;
   font-size: 18px;
   font-weight: 800;
 }
@@ -3139,10 +3106,10 @@ video {
 .secret-final-letter {
   display: none;
   margin-top: 22px;
-  border: 1px solid rgba(255, 211, 111, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 8px;
   padding: clamp(18px, 4vw, 28px);
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .proposal-game.accepted .secret-final-letter {
@@ -3152,7 +3119,7 @@ video {
 
 .secret-final-letter h4 {
   margin: 0 0 12px;
-  color: var(--plum);
+  color: white;
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(30px, 5vw, 52px);
   line-height: 1;
@@ -3160,7 +3127,7 @@ video {
 
 .secret-final-letter p:not(.eyebrow) {
   margin: 0;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.88);
   font-size: 17px;
   line-height: 1.8;
 }
