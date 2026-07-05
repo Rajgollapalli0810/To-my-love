@@ -408,55 +408,59 @@ function renderBook() {
   $("#bookPdf").data = file;
 }
 
-function buildQrHuntUrl(item) {
-  const url = new URL(location.href);
-  url.hash = "qr-hunt";
-  url.searchParams.set("hunt", item.id);
-  url.searchParams.set("v", data.assetVersion || "1");
-  return url.toString();
-}
-
 function renderQrHunt() {
   const grid = $("#qrHuntGrid");
   if (!grid || !data.qrHunt?.length) return;
   data.qrHunt.forEach((item, index) => {
     const article = create("article", "qr-hunt-card");
-    const code = create("div", "qr-code");
-    const targetUrl = buildQrHuntUrl(item);
-    if (item.qrImage) {
-      const qrImage = create("img");
-      qrImage.src = versionedAsset(item.qrImage);
-      qrImage.alt = `QR code for ${item.feeling}`;
-      qrImage.loading = "lazy";
-      code.append(qrImage);
-    } else if (window.QRCode) {
-      new QRCode(code, {
-        text: targetUrl,
-        width: 156,
-        height: 156,
-        colorDark: "#5f1640",
-        colorLight: "#fff7fb",
-        correctLevel: QRCode.CorrectLevel.M
-      });
-    } else {
-      code.innerHTML = "<span>QR loading</span>";
-    }
-
+    const scratch = create("button", "scratch-card");
+    scratch.type = "button";
+    scratch.setAttribute("aria-label", `Scratch secret ${index + 1}`);
+    scratch.innerHTML = `<span>Secret ${String(index + 1).padStart(2, "0")}</span><strong>Scratch me</strong><small>Rub here to reveal</small><i></i>`;
     const copy = create("div", "qr-hunt-copy");
-    copy.innerHTML = `<span>Secret ${String(index + 1).padStart(2, "0")}</span><strong>Scan to unlock</strong><p>${item.type === "pdf" ? "A private letter waits here." : item.type === "video" ? "A private video waits here." : "A private memory waits here."}</p>`;
-    const open = create("a", "button secondary");
-    open.href = targetUrl;
-    open.textContent = "Open secret";
-    open.addEventListener("click", (event) => {
-      event.preventDefault();
-      history.replaceState(null, "", targetUrl);
-      showQrUnlock(item.id);
-      showChapter("qr-hunt");
-    });
-    article.append(code, copy, open);
+    copy.innerHTML = `<span>Hidden ${String(index + 1).padStart(2, "0")}</span><strong>${item.type === "pdf" ? "Private letter" : item.type === "video" ? "Private video" : "Private memory"}</strong><p>Rub the card to reveal what I saved here.</p><em>Locked with love</em>`;
+    wireScratchCard(scratch, item.id);
+    article.append(scratch, copy);
     grid.append(article);
   });
-  showQrUnlock(new URLSearchParams(location.search).get("hunt"));
+}
+
+function wireScratchCard(card, id) {
+  let scratchCount = 0;
+  let isScratching = false;
+  const reveal = () => {
+    if (card.classList.contains("is-revealed")) return;
+    card.classList.add("is-revealed");
+    window.setTimeout(() => {
+      history.replaceState(null, "", `?v=${encodeURIComponent(data.assetVersion || "1")}#qr-hunt`);
+      showQrUnlock(id);
+    }, 520);
+  };
+  const scratch = (event) => {
+    if (!isScratching) return;
+    event.preventDefault();
+    scratchCount += 1;
+    card.style.setProperty("--scratch-x", `${event.offsetX || card.clientWidth / 2}px`);
+    card.style.setProperty("--scratch-y", `${event.offsetY || card.clientHeight / 2}px`);
+    card.classList.add("is-scratching");
+    if (scratchCount >= 7) reveal();
+  };
+  card.addEventListener("pointerdown", (event) => {
+    isScratching = true;
+    scratch(event);
+  });
+  card.addEventListener("pointermove", (event) => {
+    if (event.buttons) scratch(event);
+  });
+  card.addEventListener("pointerup", () => {
+    isScratching = false;
+  });
+  card.addEventListener("pointerleave", () => {
+    isScratching = false;
+  });
+  card.addEventListener("pointercancel", () => {
+    isScratching = false;
+  });
 }
 
 function showQrUnlock(id) {
