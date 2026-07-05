@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260705-intro-live-sky",
+  assetVersion: "20260705-qr-hunt",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
@@ -35,6 +35,7 @@ window.LOVE_SITE_DATA = {
     gallery: "The moments I never want time to take away.",
     notes: "Little letters for the days your heart needs me close.",
     book: "A memory you already read once, now kept forever inside our world.",
+    "qr-hunt": "Scan each little secret to unlock one more piece of my heart.",
     promises: "Small vows from my heart, saved for every version of our future.",
     playlist: "Songs that carry pieces of us.",
     reasons: "A hundred ways my heart admires you.",
@@ -54,6 +55,78 @@ window.LOVE_SITE_DATA = {
     file: "assets/delight.pdf",
     message: "You already read these words once, but I wanted them to live forever inside our little world. This book is not just pages anymore; it is a piece of the old me who loved you deeply, the present me who still chooses you, and the future me who wants every memory with you to stay safe."
   },
+  qrHunt: [
+    {
+      id: "blue-sky-beauty",
+      file: "assets/qr-hunt/Even A Blue Sky is not enough to Match Your Beauty.jpg",
+      type: "image",
+      feeling: "Even A Blue Sky is not enough to Match Your Beauty",
+      message: "Even the calmest blue sky feels small beside you. Your beauty is not just something I see; it is something my heart remembers, quietly and endlessly."
+    },
+    {
+      id: "tiredness-blessing",
+      file: "assets/qr-hunt/Even Tiredness Is  a Blessing to me.jpg",
+      type: "image",
+      feeling: "Even Tiredness Is a Blessing to me",
+      message: "Even your tiredness feels precious to me, because it reminds me how hard you try, how much you carry, and how deeply I want to protect your peace."
+    },
+    {
+      id: "seeing-us",
+      file: "assets/qr-hunt/From There Ive started seeing You as US.jpg",
+      type: "image",
+      feeling: "From There Ive started seeing You as US",
+      message: "Some moments quietly change everything. From there, I stopped seeing you as just you and me as just me; my heart began seeing us."
+    },
+    {
+      id: "saved-memory",
+      file: "assets/qr-hunt/IMG-20220325-WA0039.jpg",
+      type: "image",
+      feeling: "A Memory My Heart Saved",
+      message: "This may look like a simple memory, but to me it is one of those little pieces of time my heart refused to forget."
+    },
+    {
+      id: "loop-look",
+      file: "assets/qr-hunt/Look That Put Me In A Loop.jpg",
+      type: "image",
+      feeling: "Look That Put Me In A Loop",
+      message: "That look has a way of staying with me. It pulls me back again and again, like my heart found a place it never wanted to leave."
+    },
+    {
+      id: "love-letter",
+      file: "assets/qr-hunt/Love Letter To Dr.Amulya Raj Garu.pdf",
+      type: "pdf",
+      feeling: "Love Letter To Dr.Amulya Raj Garu",
+      message: "A letter kept safely for you, written with the kind of love that never became old, only deeper."
+    },
+    {
+      id: "first-kid-forever",
+      file: "assets/qr-hunt/My first Kid Forever.jpg",
+      type: "image",
+      feeling: "My first Kid Forever",
+      message: "There is a soft, playful part of you that I adore completely. To me, you will always be my first little world of innocence, care, and love."
+    },
+    {
+      id: "mehabooba",
+      file: "assets/qr-hunt/My Mehabooba.jpg",
+      type: "image",
+      feeling: "My Mehabooba",
+      message: "My Mehabooba, my favorite feeling, my sweetest thought. Some names are not just names; they become home inside the heart."
+    },
+    {
+      id: "blackhole-pull",
+      file: "assets/qr-hunt/The Sexy Figure pulls me with force of a blackhole.jpg",
+      type: "image",
+      feeling: "The Sexy Figure pulls me with force of a blackhole",
+      message: "There is an attraction in you that words cannot behave around. You pull my heart, my eyes, and my thoughts with a force I never want to escape."
+    },
+    {
+      id: "again-and-again",
+      file: "assets/qr-hunt/Want Again and Again.mp4",
+      type: "video",
+      feeling: "Want Again and Again",
+      message: "Some moments do not end when they finish. They stay inside me, asking to be felt again and again."
+    }
+  ],
   stats: [
     { label: "Days together", type: "daysTogether" },
     { label: "Years of love", value: "7+ Years" },

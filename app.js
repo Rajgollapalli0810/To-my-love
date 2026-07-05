@@ -7,6 +7,7 @@ const sectionIds = [
   "gallery",
   "notes",
   "book",
+  "qr-hunt",
   "promises",
   "playlist",
   "reasons",
@@ -405,6 +406,98 @@ function renderBook() {
   $("#bookOpenLink").href = file;
   $("#bookDownloadLink").href = file;
   $("#bookPdf").data = file;
+}
+
+function buildQrHuntUrl(item) {
+  const url = new URL(location.href);
+  url.hash = "qr-hunt";
+  url.searchParams.set("hunt", item.id);
+  url.searchParams.set("v", data.assetVersion || "1");
+  return url.toString();
+}
+
+function renderQrHunt() {
+  const grid = $("#qrHuntGrid");
+  if (!grid || !data.qrHunt?.length) return;
+  data.qrHunt.forEach((item, index) => {
+    const article = create("article", "qr-hunt-card");
+    const code = create("div", "qr-code");
+    const targetUrl = buildQrHuntUrl(item);
+    if (window.QRCode) {
+      new QRCode(code, {
+        text: targetUrl,
+        width: 156,
+        height: 156,
+        colorDark: "#5f1640",
+        colorLight: "#fff7fb",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    } else {
+      code.innerHTML = "<span>QR loading</span>";
+    }
+
+    const copy = create("div", "qr-hunt-copy");
+    copy.innerHTML = `<span>Secret ${String(index + 1).padStart(2, "0")}</span><strong>Scan to unlock</strong><p>${item.type === "pdf" ? "A private letter waits here." : item.type === "video" ? "A private video waits here." : "A private memory waits here."}</p>`;
+    const open = create("a", "button secondary");
+    open.href = targetUrl;
+    open.textContent = "Open secret";
+    open.addEventListener("click", (event) => {
+      event.preventDefault();
+      history.replaceState(null, "", targetUrl);
+      showQrUnlock(item.id);
+      showChapter("qr-hunt");
+    });
+    article.append(code, copy, open);
+    grid.append(article);
+  });
+  showQrUnlock(new URLSearchParams(location.search).get("hunt"));
+}
+
+function showQrUnlock(id) {
+  const card = $("#qrUnlockCard");
+  const media = $("#qrUnlockMedia");
+  const title = $("#qrUnlockTitle");
+  const message = $("#qrUnlockMessage");
+  const actions = $("#qrUnlockActions");
+  if (!card || !media || !id) return;
+  const item = data.qrHunt?.find((entry) => entry.id === id);
+  if (!item) return;
+  const file = versionedAsset(item.file);
+  media.innerHTML = "";
+  actions.innerHTML = "";
+  title.textContent = item.feeling;
+  message.textContent = item.message;
+
+  if (item.type === "pdf") {
+    const object = create("object");
+    object.data = file;
+    object.type = "application/pdf";
+    object.innerHTML = "<p>Open the PDF with the button below.</p>";
+    media.append(object);
+  } else if (item.type === "video") {
+    const video = create("video");
+    video.src = file;
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    media.append(video);
+  } else {
+    const image = create("img");
+    image.src = file;
+    image.alt = item.feeling;
+    media.append(image);
+  }
+
+  const open = create("a", "button primary");
+  open.href = file;
+  open.target = "_blank";
+  open.rel = "noopener";
+  open.textContent = item.type === "pdf" ? "Open letter" : item.type === "video" ? "Open video" : "Open photo";
+  actions.append(open);
+  card.hidden = false;
+  card.classList.remove("is-visible");
+  requestAnimationFrame(() => card.classList.add("is-visible"));
+  launchConfetti();
 }
 
 function setupPromiseJar() {
@@ -852,6 +945,7 @@ function init() {
   renderTimeline();
   renderGallery();
   renderNotes();
+  renderQrHunt();
   renderPlaylist();
   renderReasons();
   renderDreams();

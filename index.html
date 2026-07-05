@@ -7,10 +7,10 @@
     <title>Our Forever Story</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="image" href="assets/my-love/love%20of%20my%20life.png?v=20260705-intro-live-sky" />
-    <link rel="preload" as="audio" href="assets/music/background-music.mp3?v=20260705-intro-live-sky" />
+    <link rel="preload" as="image" href="assets/my-love/love%20of%20my%20life.png?v=20260705-qr-hunt" />
+    <link rel="preload" as="audio" href="assets/music/background-music.mp3?v=20260705-qr-hunt" />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260705-intro-live-sky" />
+    <link rel="stylesheet" href="styles.css?v=20260705-qr-hunt" />
   </head>
   <body>
     <div class="heart-sky" aria-hidden="true">
@@ -127,6 +127,7 @@
         <a href="#gallery">Gallery</a>
         <a href="#notes">Notes</a>
         <a href="#book">Book</a>
+        <a href="#qr-hunt">QR Hunt</a>
         <a href="#promises">Promises</a>
         <a href="#reasons">Reasons</a>
         <a href="#neet-pg">NEET PG</a>
@@ -233,6 +234,23 @@
             </object>
           </div>
         </div>
+      </section>
+
+      <section class="section qr-hunt-section" id="qr-hunt">
+        <div class="section-heading">
+          <p class="eyebrow">Hidden QR Hunt</p>
+          <p class="chapter-subtitle" data-subtitle-for="qr-hunt"></p>
+          <h2>Scan To Unlock My Secrets</h2>
+          <p class="section-intro">Each code opens one feeling I saved for you.</p>
+        </div>
+        <article class="qr-unlock-card" id="qrUnlockCard" hidden>
+          <p class="eyebrow">Secret unlocked</p>
+          <div class="qr-unlock-media" id="qrUnlockMedia"></div>
+          <h3 id="qrUnlockTitle"></h3>
+          <p id="qrUnlockMessage"></p>
+          <div class="qr-unlock-actions" id="qrUnlockActions"></div>
+        </article>
+        <div class="qr-hunt-grid" id="qrHuntGrid"></div>
       </section>
 
       <section class="section promise-section" id="promises">
@@ -364,7 +382,8 @@
 
     <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
-    <script src="data.js?v=20260705-intro-live-sky"></script>
-    <script src="app.js?v=20260705-intro-live-sky"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="data.js?v=20260705-qr-hunt"></script>
+    <script src="app.js?v=20260705-qr-hunt"></script>
   </body>
 </html>
