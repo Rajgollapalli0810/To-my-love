@@ -8,6 +8,7 @@ const sectionIds = [
   "notes",
   "book",
   "qr-hunt",
+  "voices",
   "promises",
   "playlist",
   "reasons",
@@ -263,6 +264,7 @@ function warmMediaAssets() {
     image.src = versionedAsset(data.hero.image);
   }
   data.gallery?.forEach((item) => warmAudio(item.song));
+  data.voices?.forEach((item) => warmAudio(item.file));
   data.playlist?.forEach((item) => warmAudio(item.link));
 }
 
@@ -521,6 +523,40 @@ function closeScratchPopup() {
     popup.hidden = true;
     $("#qrUnlockMedia").innerHTML = "";
   }, 220);
+}
+
+function renderVoices() {
+  const list = $("#voicesList");
+  if (!list || !data.voices?.length) return;
+  data.voices.forEach((voice, index) => {
+    const card = create("article", "voice-card");
+    const audio = create("audio");
+    audio.controls = true;
+    audio.preload = "metadata";
+    audio.src = versionedAsset(voice.file);
+    audio.addEventListener("play", () => {
+      document.querySelectorAll(".voice-card audio").forEach((other) => {
+        if (other !== audio) other.pause();
+      });
+      const backgroundMusic = $("#backgroundMusic");
+      if (!backgroundMusic.paused) backgroundMusic.volume = 0.12;
+    });
+    audio.addEventListener("pause", () => {
+      const anyVoicePlaying = [...document.querySelectorAll(".voice-card audio")].some((item) => !item.paused);
+      if (!anyVoicePlaying) {
+        const backgroundMusic = $("#backgroundMusic");
+        if (!backgroundMusic.paused) backgroundMusic.volume = 0.36;
+      }
+    });
+    audio.addEventListener("ended", () => {
+      const backgroundMusic = $("#backgroundMusic");
+      if (!backgroundMusic.paused) backgroundMusic.volume = 0.36;
+    });
+    audio.addEventListener("error", () => card.classList.add("audio-missing"));
+    card.innerHTML = `<span>${String(index + 1).padStart(2, "0")}</span><h3>${voice.title}</h3><p>${voice.message}</p>`;
+    card.append(audio);
+    list.append(card);
+  });
 }
 
 function setupPromiseJar() {
@@ -979,6 +1015,7 @@ function init() {
   renderGallery();
   renderNotes();
   renderQrHunt();
+  renderVoices();
   renderPlaylist();
   renderReasons();
   renderDreams();

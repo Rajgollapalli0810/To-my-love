@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260705-neet-theme-subtitles-normal",
+  assetVersion: "20260705-voices-filtered",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
@@ -36,6 +36,7 @@ window.LOVE_SITE_DATA = {
     notes: "Little letters for the days your heart needs me close.",
     book: "A memory you already read once, now kept forever inside our world.",
     "qr-hunt": "Scratch each little secret to unlock one more piece of my heart.",
+    voices: "Old voices, small pauses, and moments my heart never deleted.",
     promises: "Small vows from my heart, saved for every version of our future.",
     playlist: "Songs that carry pieces of us.",
     reasons: "A hundred ways my heart admires you.",
@@ -126,6 +127,21 @@ window.LOVE_SITE_DATA = {
       feeling: "Want Again and Again",
       message: "Some moments do not end when they finish. They stay inside me, asking to be felt again and again."
     }
+  ],
+  voices: [
+    { title: "A Call My Heart Remembered", file: "assets/voices from our past/A Call My Heart Remembered.mpeg", message: "Some calls end on the phone, but never inside the heart. This one stayed with me." },
+    { title: "The Night Your Voice Felt Like Home", file: "assets/voices from our past/The Night Your Voice Felt Like Home.mpeg", message: "There were nights when your voice felt softer than sleep and safer than silence." },
+    { title: "When Your Words Held Me Close", file: "assets/voices from our past/When Your Words Held Me Close.mpeg", message: "Your words had a way of sitting beside me, even when you were far away." },
+    { title: "A Memory I Can Still Hear", file: "assets/voices from our past/A Memory I Can Still Hear.mpeg", message: "This is not just a recording. It is a memory my ears and heart kept together." },
+    { title: "The Calm Inside Your Voice", file: "assets/voices from our past/The Calm Inside Your Voice.mpeg", message: "There is a calm in your voice that makes the world feel less heavy." },
+    { title: "One More Reason I Miss You", file: "assets/voices from our past/One More Reason I Miss You.mpeg", message: "Listening to this reminds me why missing you has always felt so deep." },
+    { title: "Your Voice My Favorite Place", file: "assets/voices from our past/Your Voice My Favorite Place.mpeg", message: "If a voice could become a place, yours would be where my heart goes to rest." },
+    { title: "The Call I Never Wanted To End", file: "assets/voices from our past/The Call I Never Wanted To End.mpeg", message: "Some conversations make time feel unfair, because the heart wants them to last longer." },
+    { title: "A Soft Memory Between Us", file: "assets/voices from our past/A Soft Memory Between Us.mpeg", message: "A soft little memory between us, kept safe because it still feels alive." },
+    { title: "The Conversation My Heart Saved", file: "assets/voices from our past/The Conversation My Heart Saved.mpeg", message: "My heart saved this one quietly, like it knew I would want to return to it someday." },
+    { title: "The Long Call I Still Feel", file: "assets/voices from our past/The Long Call I Still Feel.mpeg", message: "A long call, a longer feeling, and a memory that still holds warmth." },
+    { title: "A Little Forever In Your Voice", file: "assets/voices from our past/A Little Forever In Your Voice.mpeg", message: "There is a little forever hidden in the way your voice stayed with me." },
+    { title: "The Voice Note I Kept Close", file: "assets/voices from our past/The Voice Note I Kept Close.mpeg", message: "I kept this close because some sounds become feelings, and some feelings become forever." }
   ],
   stats: [
     { label: "Days together", type: "daysTogether" },
