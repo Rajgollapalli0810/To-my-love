@@ -125,6 +125,7 @@ function setupLogin() {
 }
 
 function setupIntro() {
+  setupIntroLiveSky();
   $("#introTitle").textContent = data.intro.title;
   $("#introText").textContent = data.intro.text;
   $("#introWelcome").textContent = data.intro.welcome || "";
@@ -140,6 +141,23 @@ function setupIntro() {
     tryPlayMusic();
   });
 
+}
+
+function setupIntroLiveSky() {
+  const intro = $("#introScreen");
+  if (!intro) return;
+  const skyClasses = ["sky-morning", "sky-afternoon", "sky-evening", "sky-night"];
+  const updateSky = () => {
+    const hour = new Date().getHours();
+    let skyClass = "sky-night";
+    if (hour >= 5 && hour < 11) skyClass = "sky-morning";
+    if (hour >= 11 && hour < 17) skyClass = "sky-afternoon";
+    if (hour >= 17 && hour < 20) skyClass = "sky-evening";
+    intro.classList.remove(...skyClasses);
+    intro.classList.add(skyClass);
+  };
+  updateSky();
+  window.setInterval(updateSky, 60000);
 }
 
 function showChapter(id, updateHash = true) {

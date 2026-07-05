@@ -231,6 +231,8 @@ video {
     radial-gradient(circle at 18% 72%, rgba(255, 79, 148, 0.35), transparent 28%),
     radial-gradient(circle at 82% 66%, rgba(255, 255, 255, 0.18), transparent 26%),
     #75204c;
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .login-screen.is-hidden {
@@ -248,6 +250,11 @@ video {
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.34);
   backdrop-filter: blur(18px);
+}
+
+.intro-frame {
+  position: relative;
+  z-index: 1;
 }
 
 .login-panel {
@@ -371,6 +378,188 @@ video {
 .intro-frame > :not(.hanging-hearts) {
   position: relative;
   z-index: 3;
+}
+
+.live-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.88;
+  transition: background 800ms ease;
+}
+
+.live-sky::before,
+.live-sky::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transition: opacity 800ms ease;
+}
+
+.live-sky::before {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 235, 174, 0.44), transparent 26%),
+    radial-gradient(circle at 75% 18%, rgba(255, 138, 173, 0.24), transparent 28%),
+    linear-gradient(180deg, rgba(255, 176, 205, 0.32), rgba(117, 32, 76, 0.5));
+}
+
+.live-sky::after {
+  opacity: 0;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.92) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgba(255, 230, 160, 0.72) 0 1px, transparent 2px);
+  background-position: 12% 18%, 72% 34%;
+  background-size: 86px 86px, 132px 132px;
+  animation: skyTwinkle 5s ease-in-out infinite alternate;
+}
+
+.sky-sun,
+.sky-moon,
+.sky-cloud,
+.sky-stars,
+.sky-meteor {
+  position: absolute;
+  display: block;
+}
+
+.sky-sun {
+  width: clamp(120px, 22vw, 240px);
+  height: clamp(120px, 22vw, 240px);
+  left: clamp(20px, 9vw, 120px);
+  top: clamp(22px, 10vh, 100px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 245, 185, 0.96), rgba(255, 195, 78, 0.34) 42%, transparent 68%);
+  filter: blur(1px);
+  opacity: 0;
+  animation: skyFloat 9s ease-in-out infinite;
+}
+
+.sky-moon {
+  width: clamp(82px, 14vw, 150px);
+  height: clamp(82px, 14vw, 150px);
+  right: clamp(28px, 12vw, 150px);
+  top: clamp(36px, 12vh, 120px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, rgba(255, 248, 220, 0.98), rgba(255, 236, 180, 0.54) 48%, transparent 72%);
+  box-shadow: 0 0 42px rgba(255, 236, 180, 0.42);
+  opacity: 0;
+  animation: skyFloat 10s ease-in-out infinite;
+}
+
+.sky-cloud {
+  width: clamp(150px, 22vw, 260px);
+  height: 64px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  filter: blur(0.4px);
+  opacity: 0;
+  animation: cloudDrift 28s linear infinite;
+}
+
+.sky-cloud::before,
+.sky-cloud::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.sky-cloud::before {
+  width: 70px;
+  height: 70px;
+  left: 26px;
+  bottom: 18px;
+}
+
+.sky-cloud::after {
+  width: 96px;
+  height: 96px;
+  right: 28px;
+  bottom: 10px;
+}
+
+.sky-cloud-one {
+  left: -18%;
+  top: 20%;
+}
+
+.sky-cloud-two {
+  left: 46%;
+  top: 68%;
+  transform: scale(0.72);
+  animation-duration: 34s;
+  animation-delay: -12s;
+}
+
+.sky-stars {
+  inset: 0;
+  opacity: 0;
+}
+
+.sky-meteor {
+  width: 120px;
+  height: 2px;
+  right: -140px;
+  top: 24%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 246, 210, 0.92));
+  box-shadow: 0 0 18px rgba(255, 246, 210, 0.6);
+  opacity: 0;
+  transform: rotate(-22deg);
+}
+
+.intro-screen.sky-morning .live-sky {
+  background: linear-gradient(180deg, rgba(255, 196, 118, 0.24), rgba(255, 137, 177, 0.22), rgba(117, 32, 76, 0.46));
+}
+
+.intro-screen.sky-afternoon .live-sky {
+  background: linear-gradient(180deg, rgba(255, 225, 241, 0.24), rgba(255, 188, 215, 0.18), rgba(117, 32, 76, 0.46));
+}
+
+.intro-screen.sky-evening .live-sky {
+  background: linear-gradient(180deg, rgba(255, 172, 88, 0.3), rgba(209, 68, 128, 0.22), rgba(70, 12, 45, 0.58));
+}
+
+.intro-screen.sky-night .live-sky {
+  background: linear-gradient(180deg, rgba(26, 12, 58, 0.68), rgba(73, 24, 73, 0.56), rgba(117, 32, 76, 0.38));
+}
+
+.intro-screen.sky-morning .sky-sun,
+.intro-screen.sky-afternoon .sky-sun,
+.intro-screen.sky-evening .sky-sun {
+  opacity: 0.72;
+}
+
+.intro-screen.sky-evening .sky-sun {
+  left: auto;
+  right: clamp(12px, 8vw, 100px);
+  top: auto;
+  bottom: clamp(18px, 10vh, 90px);
+  opacity: 0.58;
+}
+
+.intro-screen.sky-afternoon .sky-cloud,
+.intro-screen.sky-morning .sky-cloud {
+  opacity: 0.72;
+}
+
+.intro-screen.sky-evening .sky-cloud {
+  opacity: 0.34;
+}
+
+.intro-screen.sky-night .sky-moon {
+  opacity: 0.8;
+}
+
+.intro-screen.sky-night .live-sky::after,
+.intro-screen.sky-night .sky-stars {
+  opacity: 0.72;
+}
+
+.intro-screen.sky-night .sky-meteor {
+  animation: meteorPass 6s ease-in-out 1.2s infinite;
 }
 
 .unlock-toast {
@@ -511,6 +700,54 @@ video {
   }
   62% {
     transform: scale(1.08);
+  }
+}
+
+@keyframes skyFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(10px, -12px, 0) scale(1.03);
+  }
+}
+
+@keyframes cloudDrift {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(135vw);
+  }
+}
+
+@keyframes skyTwinkle {
+  from {
+    opacity: 0.46;
+  }
+
+  to {
+    opacity: 0.82;
+  }
+}
+
+@keyframes meteorPass {
+  0%,
+  72% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(-22deg);
+  }
+
+  78% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(-120vw, 48vh, 0) rotate(-22deg);
   }
 }
 
