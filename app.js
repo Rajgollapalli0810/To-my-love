@@ -266,12 +266,43 @@ function renderHeartbeatMessage() {
 
 function renderStats() {
   const grid = $("#statsGrid");
+  renderRelationshipCounter();
   data.stats.forEach((stat) => {
     const article = create("article", "stat-card");
     const value = stat.type === "daysTogether" ? formatDaysTogether() : stat.value;
     article.innerHTML = `<span>${stat.label}</span><strong>${value}</strong>`;
     grid.append(article);
   });
+}
+
+function renderRelationshipCounter() {
+  const target = $("#relationshipCounter");
+  const base = data.relationshipCounter;
+  if (!target || !base) return;
+  const labels = ["Years", "Months", "Days", "Hours", "Minutes", "Seconds"];
+  const start = Date.now();
+  const startingSeconds =
+    (((((base.years * 12 + base.months) * 30 + base.days) * 24 + base.hours) * 60 + base.minutes) * 60) +
+    base.seconds;
+
+  const render = () => {
+    let remaining = startingSeconds + Math.floor((Date.now() - start) / 1000);
+    const seconds = remaining % 60;
+    remaining = Math.floor(remaining / 60);
+    const minutes = remaining % 60;
+    remaining = Math.floor(remaining / 60);
+    const hours = remaining % 24;
+    remaining = Math.floor(remaining / 24);
+    const days = remaining % 30;
+    remaining = Math.floor(remaining / 30);
+    const months = remaining % 12;
+    const years = Math.floor(remaining / 12);
+    const values = [years, months, days, hours, minutes, seconds];
+    target.innerHTML = `<p>${base.title}</p><div>${values.map((value, index) => `<span><strong>${value}</strong><em>${labels[index]}</em></span>`).join("")}</div>`;
+  };
+
+  render();
+  window.setInterval(render, 1000);
 }
 
 function renderVideo() {

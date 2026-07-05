@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260703-gold-heartbeat",
+  assetVersion: "20260705-relationship-counter",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
@@ -64,6 +64,15 @@ window.LOVE_SITE_DATA = {
     { label: "Forever I Believe In", value: "Us" },
     { label: "My Heart's Choice", value: "Only You" }
   ],
+  relationshipCounter: {
+    title: "We've been together for",
+    years: 4,
+    months: 8,
+    days: 21,
+    hours: 13,
+    minutes: 48,
+    seconds: 12
+  },
   timeline: [
     { date: "The beginning", title: "First Meet", text: "Some meetings feel normal in the moment, but later the heart understands they were never ordinary. That first meet became the soft beginning of everything I now call love." },
     { date: "Almost 7 years", title: "A Love That Stayed", text: "Almost seven years is not just time. It is patience, memories, waiting, growing, forgiving, dreaming, and still choosing each other with the same heart again and again." },
