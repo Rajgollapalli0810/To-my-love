@@ -1,7 +1,7 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260706-final-voice-real",
+  assetVersion: "20260706-final-voice-live",
   secretDate: "21102021",
   couple: {
     yourName: "Chinnu",
@@ -450,7 +450,7 @@ window.LOVE_SITE_DATA = {
     finalVoiceNote: {
       title: "One last thing... listen to me",
       message: "If my words ever fail, let my voice say what my heart has been holding.",
-      file: "assets/final-voice-note/My Hope For You.aac",
+      file: "assets/final-voice-note/final-voice-note.aac",
       replaceHint: "A final voice note from my heart, kept for the last moment."
     },
     proposalFlow: {
