@@ -303,6 +303,7 @@ function renderShell() {
     $("#holdHeartButton strong").textContent = data.birthday.holdHeart.button;
     $("#holdHeartMessage").textContent = data.birthday.holdHeart.message;
   }
+  renderFinalVoiceNote();
   $("#videoMessageText").textContent = data.videoMessage.text;
   renderProposalFlow();
   if (data.neetPg) {
@@ -841,6 +842,16 @@ function renderProposalFlow() {
   updateProposalQuestion();
 }
 
+function renderFinalVoiceNote() {
+  const note = data.birthday.finalVoiceNote;
+  const box = $("#finalVoiceNote");
+  if (!box || !note?.file) return;
+  $("#finalVoiceTitle").textContent = note.title || "One last thing... listen to me";
+  $("#finalVoiceMessage").textContent = note.message || "";
+  $("#finalVoiceHint").textContent = note.replaceHint || "";
+  $("#finalVoiceAudio").src = versionedAsset(note.file);
+}
+
 function currentProposalQuestions() {
   const flow = data.birthday.proposalFlow;
   return [...flow.questions, flow.finalQuestion];
@@ -900,6 +911,7 @@ function setupProposalFlow() {
     const nextIndex = Number(game.dataset.step || 0) + 1;
     if (nextIndex >= questions.length) {
       game.classList.add("accepted");
+      revealFinalVoiceNote();
       stopProposalNoDance();
       launchConfetti();
       return;
@@ -922,6 +934,33 @@ function setupMoodBooster() {
     lastIndex = index;
     $("#moodMessage").textContent = data.moodBooster.messages[index];
     $("#moodBooster").classList.add("has-message");
+  });
+}
+
+function revealFinalVoiceNote() {
+  const box = $("#finalVoiceNote");
+  if (!box) return;
+  box.hidden = false;
+  box.classList.remove("is-visible");
+  void box.offsetWidth;
+  box.classList.add("is-visible");
+}
+
+function setupFinalVoiceNote() {
+  const audio = $("#finalVoiceAudio");
+  if (!audio) return;
+  audio.addEventListener("play", () => {
+    const backgroundMusic = $("#backgroundMusic");
+    if (!backgroundMusic.paused) backgroundMusic.volume = 0.1;
+  });
+  audio.addEventListener("pause", () => {
+    const backgroundMusic = $("#backgroundMusic");
+    if (!backgroundMusic.paused) backgroundMusic.volume = 0.36;
+  });
+  audio.addEventListener("ended", () => {
+    const backgroundMusic = $("#backgroundMusic");
+    if (!backgroundMusic.paused) backgroundMusic.volume = 0.36;
+    launchConfetti();
   });
 }
 
@@ -1024,6 +1063,7 @@ function init() {
   setupMoodBooster();
   setupHeartbeat();
   setupHoldHeart();
+  setupFinalVoiceNote();
   setupGalleryLightbox();
   setupScratchPopup();
   setupHeartTrail();
