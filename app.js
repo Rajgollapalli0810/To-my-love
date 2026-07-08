@@ -37,6 +37,118 @@ function versionedAsset(path) {
   return `${path}${joiner}v=${encodeURIComponent(data.assetVersion || "1")}`;
 }
 
+function counterRequest(params = {}) {
+  const config = data.visitorCounter || {};
+  if (!config.enabled || !config.endpoint) return Promise.resolve(null);
+  return new Promise((resolve) => {
+    const callbackName = `loveCounter_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    let url;
+    try {
+      url = new URL(config.endpoint);
+    } catch (error) {
+      resolve(null);
+      return;
+    }
+    Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
+    url.searchParams.set("callback", callbackName);
+    const script = document.createElement("script");
+    const cleanup = () => {
+      delete window[callbackName];
+      script.remove();
+    };
+    const timer = window.setTimeout(() => {
+      cleanup();
+      resolve(null);
+    }, 8000);
+    window[callbackName] = (payload) => {
+      window.clearTimeout(timer);
+      cleanup();
+      resolve(payload || null);
+    };
+    script.onerror = () => {
+      window.clearTimeout(timer);
+      cleanup();
+      resolve(null);
+    };
+    script.src = url.toString();
+    document.head.append(script);
+  });
+}
+
+function getVisitorId() {
+  try {
+    const existing = localStorage.getItem("loveVisitorId");
+    if (existing) return existing;
+    const id = `visitor-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    localStorage.setItem("loveVisitorId", id);
+    return id;
+  } catch (error) {
+    return `visitor-${Date.now()}`;
+  }
+}
+
+function isCounterAdmin() {
+  const adminKey = new URLSearchParams(window.location.search).get("admin");
+  return !!adminKey;
+}
+
+function recordVisit() {
+  if (isCounterAdmin()) return;
+  try {
+    if (sessionStorage.getItem("loveVisitLogged")) return;
+    sessionStorage.setItem("loveVisitLogged", "1");
+  } catch (error) {
+    // If storage is blocked, still allow one best-effort counter request.
+  }
+  counterRequest({
+    action: "visit",
+    visitor: getVisitorId(),
+    page: window.location.pathname,
+    version: data.assetVersion || "1",
+    tz: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
+    userAgent: navigator.userAgent || ""
+  });
+}
+
+function formatCounterDate(value) {
+  if (!value) return "No visits logged yet.";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return `Last opened: ${date.toLocaleString()}`;
+}
+
+async function refreshVisitorCounter() {
+  const panel = $("#visitorAdmin");
+  if (!panel || panel.hidden) return;
+  const config = data.visitorCounter || {};
+  if (!config.endpoint) {
+    $("#visitorLastSeen").textContent = "Counter setup needed: paste your Google Apps Script URL in data.js.";
+    return;
+  }
+  $("#visitorLastSeen").textContent = "Checking visits...";
+  const adminKey = new URLSearchParams(window.location.search).get("admin") || "";
+  const stats = await counterRequest({ action: "stats", key: adminKey });
+  if (!stats || stats.ok === false) {
+    $("#visitorLastSeen").textContent = "Could not read the counter yet. Check the Apps Script URL and PIN.";
+    return;
+  }
+  $("#visitorTotal").textContent = stats.total ?? "--";
+  $("#visitorToday").textContent = stats.today ?? "--";
+  $("#visitorLastSeen").textContent = formatCounterDate(stats.lastSeen);
+}
+
+function setupVisitorCounter() {
+  recordVisit();
+  const panel = $("#visitorAdmin");
+  if (!panel || !isCounterAdmin()) return;
+  panel.hidden = false;
+  $("#visitorAdminClose").addEventListener("click", () => {
+    panel.hidden = true;
+  });
+  $("#visitorRefresh").addEventListener("click", refreshVisitorCounter);
+  refreshVisitorCounter();
+}
+
 function parseLoveDate(value) {
   const parts = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/);
   if (parts) {
@@ -1067,6 +1179,7 @@ function init() {
   setupGalleryLightbox();
   setupScratchPopup();
   setupHeartTrail();
+  setupVisitorCounter();
   $("#confettiButton").addEventListener("click", launchConfetti);
   $("#neetConfettiButton").addEventListener("click", launchConfetti);
   window.setTimeout(warmMediaAssets, 250);

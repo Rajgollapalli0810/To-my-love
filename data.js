@@ -1,8 +1,12 @@
 // Personalize this file. Put your photos/videos/music in the assets folder,
 // then update the paths below. Example: "assets/our-photo.jpg"
 window.LOVE_SITE_DATA = {
-  assetVersion: "20260706-final-voice-live",
+  assetVersion: "20260708-private-counter",
   secretDate: "21102021",
+  visitorCounter: {
+    enabled: true,
+    endpoint: ""
+  },
   couple: {
     yourName: "Chinnu",
     partnerName: "Dr.Amulya Raj",

@@ -7,10 +7,10 @@
     <title>Our Forever Story</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="image" href="assets/my-love/love%20of%20my%20life.png?v=20260706-final-voice-live" />
-    <link rel="preload" as="audio" href="assets/music/background-music.mp3?v=20260706-final-voice-live" />
+    <link rel="preload" as="image" href="assets/my-love/love%20of%20my%20life.png?v=20260708-private-counter" />
+    <link rel="preload" as="audio" href="assets/music/background-music.mp3?v=20260708-private-counter" />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260706-final-voice-live" />
+    <link rel="stylesheet" href="styles.css?v=20260708-private-counter" />
   </head>
   <body>
     <div class="heart-sky" aria-hidden="true">
@@ -115,6 +115,24 @@
       <button id="musicToggle" type="button" aria-label="Toggle music">Play music</button>
       <audio id="backgroundMusic" loop preload="auto"></audio>
     </div>
+
+    <section class="visitor-admin" id="visitorAdmin" hidden>
+      <button class="visitor-admin-close" id="visitorAdminClose" type="button" aria-label="Hide visitor counter">Close</button>
+      <p class="eyebrow">Private counter</p>
+      <h2>Visitor Check</h2>
+      <div class="visitor-stats">
+        <span>
+          <strong id="visitorTotal">--</strong>
+          <small>Total opens</small>
+        </span>
+        <span>
+          <strong id="visitorToday">--</strong>
+          <small>Today</small>
+        </span>
+      </div>
+      <p id="visitorLastSeen">Waiting for counter setup.</p>
+      <button id="visitorRefresh" type="button">Refresh</button>
+    </section>
 
     <header class="topbar">
       <a class="brand" href="#home" aria-label="Home">
@@ -404,7 +422,7 @@
 
     <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
-    <script src="data.js?v=20260706-final-voice-live"></script>
-    <script src="app.js?v=20260706-final-voice-live"></script>
+    <script src="data.js?v=20260708-private-counter"></script>
+    <script src="app.js?v=20260708-private-counter"></script>
   </body>
 </html>
