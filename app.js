@@ -26,10 +26,11 @@ const create = (tag, className) => {
 let chaptersReady = false;
 let gallerySong = null;
 let proposalNoTimer = null;
-let backgroundWasPlayingBeforeGallery = false;
 let backgroundMusicRequested = false;
+let backgroundWasPlayingBeforeForeground = false;
 let promiseLoginSeed = Date.now();
 const audioCache = new Map();
+const backgroundPauseLocks = new Set();
 
 function versionedAsset(path) {
   if (!path || /^https?:\/\//.test(path)) return path;
@@ -275,7 +276,7 @@ function setupIntroLiveSky() {
 }
 
 function showChapter(id, updateHash = true) {
-  pauseStoryVideo();
+  pauseForegroundMedia();
   const targetId = sectionIds.includes(id) ? id : "home";
   const index = sectionIds.indexOf(targetId);
   document.body.classList.add("chapter-leaving");
@@ -299,6 +300,14 @@ function showChapter(id, updateHash = true) {
 function pauseStoryVideo() {
   const video = document.querySelector("#videoFrame video");
   if (video && !video.paused) video.pause();
+}
+
+function pauseForegroundMedia() {
+  stopGallerySong();
+  document.querySelectorAll("audio, video").forEach((media) => {
+    if (media.id === "backgroundMusic") return;
+    if (!media.paused) media.pause();
+  });
 }
 
 function setupChapters() {
@@ -344,10 +353,14 @@ function tryPlayMusic() {
   if (!data.music.file) return;
   backgroundMusicRequested = true;
   prepareBackgroundMusic();
+  if (backgroundPauseLocks.size) {
+    updateMusicToggle();
+    return;
+  }
   audio.volume = 0.36;
   audio.play()
-    .then(() => $("#musicToggle").textContent = "Pause music")
-    .catch(() => $("#musicToggle").textContent = "Play music");
+    .then(updateMusicToggle)
+    .catch(updateMusicToggle);
 }
 
 function prepareBackgroundMusic() {
@@ -380,19 +393,61 @@ function warmMediaAssets() {
   data.playlist?.forEach((item) => warmAudio(item.link));
 }
 
+function updateMusicToggle() {
+  const button = $("#musicToggle");
+  const audio = $("#backgroundMusic");
+  if (!button || !audio) return;
+  if (backgroundPauseLocks.size && backgroundMusicRequested) {
+    button.textContent = "Music paused";
+    return;
+  }
+  button.textContent = audio.paused ? "Play music" : "Pause music";
+}
+
+function pauseBackgroundForForeground(lockId) {
+  const audio = $("#backgroundMusic");
+  if (!audio || !lockId) return;
+  if (!audio.paused) {
+    backgroundWasPlayingBeforeForeground = true;
+    audio.pause();
+  }
+  backgroundPauseLocks.add(lockId);
+  updateMusicToggle();
+}
+
+function releaseBackgroundForForeground(lockId) {
+  const audio = $("#backgroundMusic");
+  if (!audio || !lockId) return;
+  backgroundPauseLocks.delete(lockId);
+  if (!backgroundPauseLocks.size && backgroundMusicRequested && backgroundWasPlayingBeforeForeground) {
+    backgroundWasPlayingBeforeForeground = false;
+    audio.volume = 0.36;
+    audio.play().catch(() => {});
+  }
+  if (!backgroundPauseLocks.size) backgroundWasPlayingBeforeForeground = false;
+  updateMusicToggle();
+}
+
 function setupMusic() {
   const audio = $("#backgroundMusic");
   $("#musicToggle").addEventListener("click", () => {
+    if (backgroundPauseLocks.size && backgroundMusicRequested) {
+      backgroundMusicRequested = false;
+      backgroundWasPlayingBeforeForeground = false;
+      updateMusicToggle();
+      return;
+    }
     if (audio.paused) {
       tryPlayMusic();
     } else {
+      backgroundMusicRequested = false;
       audio.pause();
-      $("#musicToggle").textContent = "Play music";
+      updateMusicToggle();
     }
   });
-  document.addEventListener("pointerdown", () => {
-    if (backgroundMusicRequested && audio.paused) tryPlayMusic();
-  }, { passive: true });
+  audio.addEventListener("play", updateMusicToggle);
+  audio.addEventListener("pause", updateMusicToggle);
+  audio.addEventListener("ended", updateMusicToggle);
 }
 
 function renderShell() {
@@ -493,21 +548,14 @@ function renderVideo() {
   });
   video.addEventListener("play", () => {
     frame.classList.add("is-playing");
-    const music = $("#backgroundMusic");
-    music.volume = 0.14;
-    if (music.paused && data.music.file) {
-      music.src = versionedAsset(data.music.file);
-      music.play().catch(() => {});
-    }
+    pauseBackgroundForForeground(video);
   });
   video.addEventListener("pause", () => {
-    const music = $("#backgroundMusic");
-    if (!music.paused) music.volume = 0.36;
+    releaseBackgroundForForeground(video);
   });
   video.addEventListener("ended", () => {
     frame.classList.remove("is-playing");
-    const music = $("#backgroundMusic");
-    if (!music.paused) music.volume = 0.36;
+    releaseBackgroundForForeground(video);
   });
   video.addEventListener("error", () => frame.insertAdjacentHTML("beforeend", "<span>Add video-message.mp4</span>"));
   frame.append(video, cover);
@@ -606,6 +654,9 @@ function showQrUnlock(id) {
     video.controls = true;
     video.playsInline = true;
     video.preload = "metadata";
+    video.addEventListener("play", () => pauseBackgroundForForeground(video));
+    video.addEventListener("pause", () => releaseBackgroundForForeground(video));
+    video.addEventListener("ended", () => releaseBackgroundForForeground(video));
     media.append(video);
   } else {
     const image = create("img");
@@ -648,22 +699,16 @@ function renderVoices() {
     audio.preload = "metadata";
     audio.src = versionedAsset(voice.file);
     audio.addEventListener("play", () => {
+      pauseBackgroundForForeground(audio);
       document.querySelectorAll(".voice-card audio").forEach((other) => {
         if (other !== audio) other.pause();
       });
-      const backgroundMusic = $("#backgroundMusic");
-      if (!backgroundMusic.paused) backgroundMusic.volume = 0.12;
     });
     audio.addEventListener("pause", () => {
-      const anyVoicePlaying = [...document.querySelectorAll(".voice-card audio")].some((item) => !item.paused);
-      if (!anyVoicePlaying) {
-        const backgroundMusic = $("#backgroundMusic");
-        if (!backgroundMusic.paused) backgroundMusic.volume = 0.36;
-      }
+      releaseBackgroundForForeground(audio);
     });
     audio.addEventListener("ended", () => {
-      const backgroundMusic = $("#backgroundMusic");
-      if (!backgroundMusic.paused) backgroundMusic.volume = 0.36;
+      releaseBackgroundForForeground(audio);
     });
     audio.addEventListener("error", () => card.classList.add("audio-missing"));
     card.innerHTML = `<span>${String(index + 1).padStart(2, "0")}</span><h3>${voice.title}</h3><p>${voice.message}</p>`;
@@ -776,31 +821,26 @@ function closeGalleryLightbox() {
 function playGallerySong(song) {
   stopGallerySong();
   if (!song) return;
-  const backgroundMusic = $("#backgroundMusic");
-  backgroundWasPlayingBeforeGallery = !backgroundMusic.paused;
-  if (backgroundWasPlayingBeforeGallery) backgroundMusic.pause();
   gallerySong = warmAudio(song) || new Audio(versionedAsset(song));
   gallerySong.pause();
   gallerySong.currentTime = 0;
   gallerySong.volume = 0.62;
   gallerySong.loop = true;
+  pauseBackgroundForForeground(gallerySong);
   gallerySong.play().catch(() => {
+    releaseBackgroundForForeground(gallerySong);
     $("#lightboxSong").textContent = "Tap once more if the song does not start automatically.";
   });
 }
 
 function stopGallerySong() {
   if (gallerySong) {
+    const stoppedSong = gallerySong;
     gallerySong.pause();
     gallerySong.currentTime = 0;
+    releaseBackgroundForForeground(stoppedSong);
     gallerySong = null;
   }
-  const backgroundMusic = $("#backgroundMusic");
-  backgroundMusic.volume = 0.36;
-  if (backgroundWasPlayingBeforeGallery) {
-    backgroundMusic.play().catch(() => {});
-  }
-  backgroundWasPlayingBeforeGallery = false;
 }
 
 function renderNotes() {
@@ -1062,16 +1102,13 @@ function setupFinalVoiceNote() {
   const audio = $("#finalVoiceAudio");
   if (!audio) return;
   audio.addEventListener("play", () => {
-    const backgroundMusic = $("#backgroundMusic");
-    if (!backgroundMusic.paused) backgroundMusic.volume = 0.1;
+    pauseBackgroundForForeground(audio);
   });
   audio.addEventListener("pause", () => {
-    const backgroundMusic = $("#backgroundMusic");
-    if (!backgroundMusic.paused) backgroundMusic.volume = 0.36;
+    releaseBackgroundForForeground(audio);
   });
   audio.addEventListener("ended", () => {
-    const backgroundMusic = $("#backgroundMusic");
-    if (!backgroundMusic.paused) backgroundMusic.volume = 0.36;
+    releaseBackgroundForForeground(audio);
     launchConfetti();
   });
 }
