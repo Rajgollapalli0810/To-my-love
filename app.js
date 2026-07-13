@@ -1064,6 +1064,9 @@ function setupProposalFlow() {
     if (nextIndex >= questions.length) {
       game.classList.add("accepted");
       revealFinalVoiceNote();
+      window.setTimeout(() => {
+        $("#secretFinalLetter")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 350);
       stopProposalNoDance();
       launchConfetti();
       return;
